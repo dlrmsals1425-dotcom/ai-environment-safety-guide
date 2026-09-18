@@ -1,0 +1,11 @@
+node_modules/
+dist/
+public/data/*
+!public/data/demo/
+!public/data/demo/**
+data/staging/
+.env.local
+_grok/
+.vite/
+coverage/
+*.tsbuildinfo

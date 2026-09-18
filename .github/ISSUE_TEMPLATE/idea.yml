@@ -1,0 +1,27 @@
+name: 아이디어 / 기능 제안
+description: 팀원들과 아이디어를 공유하고 구현 범위를 정합니다.
+title: '[아이디어] '
+labels: [idea]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 어떤 문제를 해결하고 싶나요?
+      description: 대상 사용자와 구체적인 상황을 적어 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 제안하는 기능 / 화면
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 참고 자료와 필요한 데이터
+      description: 출처 링크, 예시 화면, 정확도·비용·라이선스 고려사항 등
+  - type: textarea
+    id: done
+    attributes:
+      label: 완료됐다고 판단할 기준

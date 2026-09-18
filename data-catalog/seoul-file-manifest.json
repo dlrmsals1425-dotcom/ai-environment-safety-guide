@@ -1,0 +1,175 @@
+{
+  "downloadDate": "2026-09-18",
+  "targetRegion": "서울특별시",
+  "mapPlatform": "Google Maps",
+  "fileCount": 32,
+  "totalBytes": 467950184,
+  "files": [
+    {
+      "path": "source-data/seoul/access-guides/01_공개제한_공간정보_제공신청서_학술연구.hwp",
+      "bytes": 53248,
+      "sha256": "6b7c8cccdf20d0b6720eba779a4e27eed2c47f27d9639d63d24144948ef34302"
+    },
+    {
+      "path": "source-data/seoul/access-guides/02_학술연구_신청_부대서류.hwp",
+      "bytes": 83456,
+      "sha256": "8b0a4551d5f7ea8b0fab9d4906bb3594c550cf2e5450f987911ee878f7f269ba"
+    },
+    {
+      "path": "source-data/seoul/access-guides/03_연구과제계획서_예시.hwp",
+      "bytes": 31744,
+      "sha256": "cdcf12e5e58c2bcc0bb795219c9440162888132a2e08e5fa66a537f29fa8d6da"
+    },
+    {
+      "path": "source-data/seoul/access-guides/forms-manifest.json",
+      "bytes": 849,
+      "sha256": "dc1935f73146667f7d3ac766f064c0ce42e78afad6da4a1e65b3f7bf3b5e7fb9"
+    },
+    {
+      "path": "source-data/seoul/access-guides/★ 3D 제공 관련 FAQ 모음집(2026.04.).pdf",
+      "bytes": 1865705,
+      "sha256": "553e2d2826569580dbc63e58a77781da4ce86da81ce93b892c5443bdf678553a"
+    },
+    {
+      "path": "source-data/seoul/access-guides/공개제한 공간정보 개방 목록_2026.xlsx",
+      "bytes": 14438,
+      "sha256": "2139eb40e55f06e15b306c1ee9c0a0cbb2c74c6dc69854b67cdb58be0b6a6ded"
+    },
+    {
+      "path": "source-data/seoul/buildings/AL_D010_11_20260909.zip",
+      "bytes": 135736236,
+      "sha256": "c58c2955ea75d81ba35c369cc1132bd58f9dfd2b56bff09b0796d9335997617a"
+    },
+    {
+      "path": "source-data/seoul/buildings/column-definitions.json",
+      "bytes": 5797,
+      "sha256": "502cce0623f6d66e2748a246fec2496d41ac2ae583b645c682601c433652cb30"
+    },
+    {
+      "path": "source-data/seoul/buildings/data-profile.json",
+      "bytes": 1361,
+      "sha256": "5ad16cdbbb906bc2c702122bcccbc139b45de60cb23df325594fb2c4fa7715e6"
+    },
+    {
+      "path": "source-data/seoul/buildings/download-manifest.json",
+      "bytes": 1082,
+      "sha256": "42b83b1e3f1c945024f8e801122310d29d56aa366b9228e1fee5f46793ac898e"
+    },
+    {
+      "path": "source-data/seoul/buildings/국가중점데이터_컬럼정의서_20260102.xlsx",
+      "bytes": 224115,
+      "sha256": "46dd29c6ab681c1e34cf00d91f8f2fe68b7e1868a853315eaa292838238ecb0f"
+    },
+    {
+      "path": "source-data/seoul/README.md",
+      "bytes": 1144,
+      "sha256": "688ae12ad271cf285f89be21fd78ec481a2591fa386e6a4386fa4cf053f845bf"
+    },
+    {
+      "path": "source-data/seoul/terrain/copernicus-glo30/Copernicus_DSM_10_N37_00_E126_00.xml",
+      "bytes": 44725,
+      "sha256": "a3709a6f9133d94ccbaaa91bb1a2119de41fbce2e9ec4f51ed372960d9c8f84b"
+    },
+    {
+      "path": "source-data/seoul/terrain/copernicus-glo30/Copernicus_DSM_10_N37_00_E127_00.xml",
+      "bytes": 44770,
+      "sha256": "4233340b845533493b87d5c58c314e897463c02cc87d2e3abc41ab4b81822600"
+    },
+    {
+      "path": "source-data/seoul/terrain/copernicus-glo30/Copernicus_DSM_COG_10_N37_00_E126_00_DEM.tif",
+      "bytes": 29862574,
+      "sha256": "f530dd28308ecd6c5ceb0405dc1ffb7113bcafdec30d023de50f16dc433a274f"
+    },
+    {
+      "path": "source-data/seoul/terrain/copernicus-glo30/Copernicus_DSM_COG_10_N37_00_E126_00_HEM.tif",
+      "bytes": 29041387,
+      "sha256": "599bb71fc7e8fd5fc54810dbaede0bdd11a21fc68f3ca9f766b3c491b359baed"
+    },
+    {
+      "path": "source-data/seoul/terrain/copernicus-glo30/Copernicus_DSM_COG_10_N37_00_E127_00_DEM.tif",
+      "bytes": 49403795,
+      "sha256": "4f8fef79da8c18ed9a9a0fb97b3d2695c4681181e013e039d87044e5479f7df6"
+    },
+    {
+      "path": "source-data/seoul/terrain/copernicus-glo30/Copernicus_DSM_COG_10_N37_00_E127_00_HEM.tif",
+      "bytes": 51938985,
+      "sha256": "05798f087473adf1c4216143d69cdea7badfe773c288b2ac2711073d7879ffe0"
+    },
+    {
+      "path": "source-data/seoul/terrain/copernicus-glo30/data-profile.json",
+      "bytes": 1593,
+      "sha256": "1ccfbfa4716fc30631035626f992030b3c5c17a89992ac956fd10d044708aa64"
+    },
+    {
+      "path": "source-data/seoul/terrain/copernicus-glo30/download-manifest.json",
+      "bytes": 2768,
+      "sha256": "943427f2ba5f26dccf84d4d40362fddfd4176cba55550e35fae5548c32b4dd9e"
+    },
+    {
+      "path": "source-data/seoul/terrain/copernicus-glo30/eula_F.pdf",
+      "bytes": 117522,
+      "sha256": "32049914c37f14e7d53b48d13d74a49e77c030236e2acc7a0df426f9344feba2"
+    },
+    {
+      "path": "source-data/seoul/terrain/download-manifest.json",
+      "bytes": 552,
+      "sha256": "725f6616345cee728437f31eb9a5b83d2c2742dc54f5fde571e990157155637b"
+    },
+    {
+      "path": "source-data/seoul/terrain/NGII_DEM_90m_한반도.zip",
+      "bytes": 131012487,
+      "sha256": "5ff5d16cf49ab8772801f1e770c2f2be4b415aacf93318f8ab9f08b506ef827e"
+    },
+    {
+      "path": "source-data/seoul/trees/data-profile.json",
+      "bytes": 6286,
+      "sha256": "c758638c21f59bdc69d1a78eb06938b8b9876cb29ca3d1c7b1b24c7e94b7886c"
+    },
+    {
+      "path": "source-data/seoul/trees/download-manifest.json",
+      "bytes": 2301,
+      "sha256": "8d7da2e3d3d0eae2f6bf186d13058d3553c1e41d6c72d8965ece438c34722c26"
+    },
+    {
+      "path": "source-data/seoul/trees/source-metadata.json",
+      "bytes": 2121,
+      "sha256": "6ff78c65bf5020fea0a514bda0d2caaed0cbf331e3b92c56dd20fa25aa27a9b5"
+    },
+    {
+      "path": "source-data/seoul/trees/specifications/TN_NRSTR_ND_OBT_W.xlsx",
+      "bytes": 15341,
+      "sha256": "06c0aa9123e4883276ece9ea6886233d67da0128e303ebbd7ae1a463224744db"
+    },
+    {
+      "path": "source-data/seoul/trees/specifications/TN_PARK_ND_PVTLND_WDPT_W.xlsx",
+      "bytes": 14967,
+      "sha256": "049c8a96cdc4bc47f56300068645ad0f9fa98b7c9b4a2f6a0c3c87b6109523b3"
+    },
+    {
+      "path": "source-data/seoul/trees/specifications/TN_STTREE_W.xlsx",
+      "bytes": 15602,
+      "sha256": "aad4bf751f2c89593357cad613949a9c9d24e76710baf9852e03c17ae97f0206"
+    },
+    {
+      "path": "source-data/seoul/trees/TN_NRSTR_ND_OBT_W_SHP.zip",
+      "bytes": 41214,
+      "sha256": "5b46b7720edd5ac3bbb10adcf90718f126daa070a3ff30d03ca2ff448feff35b"
+    },
+    {
+      "path": "source-data/seoul/trees/TN_PARK_ND_PVTLND_WDPT_W_SHP.zip",
+      "bytes": 14898558,
+      "sha256": "a20aec0636cfbd4341d0799e851a0271104f0ec459fc46fc52504f71e5fe9698"
+    },
+    {
+      "path": "source-data/seoul/trees/TN_STTREE_W_SHP.zip",
+      "bytes": 23463461,
+      "sha256": "d50116c6b1aa2b34bfbad765f9decb6aa1c6b67b2f49240324f1949ef8dc0ece"
+    }
+  ],
+  "notDownloaded": [
+    "Seoul citywide 1m DEM/DSM and LiDAR",
+    "Seoul road-area 1m DEM/DSM and LiDAR",
+    "Seoul precise building-height spatial data"
+  ],
+  "validation": "Five ZIP archives CRC checked; tree DBFs and building attributes profiled; Copernicus GeoTIFF headers inspected; no new app implementation"
+}

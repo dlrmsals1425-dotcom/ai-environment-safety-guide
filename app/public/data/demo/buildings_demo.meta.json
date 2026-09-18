@@ -1,0 +1,13 @@
+{
+  "source": "합성 데모 데이터",
+  "synthetic": true,
+  "downloadedAt": null,
+  "featureCount": 42,
+  "aoiBboxWgs84": [
+    126.8266,
+    37.6535,
+    126.8374,
+    37.6625
+  ],
+  "warning": "실제 건물이 아닙니다. 분석·보고 용도로 사용 금지."
+}

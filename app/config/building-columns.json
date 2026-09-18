@@ -1,0 +1,9 @@
+{
+  "floors": ["GRND_FLR", "GRO_FLO_CO", "floors", "지상층수", "A26"],
+  "floorsUg": ["UGRND_FLR", "UND_FLO_CO", "지하층수", "A27"],
+  "height": ["HEIGHT", "BLD_HEIGHT", "height", "높이", "A16"],
+  "name": ["BLD_NM", "BULD_NM", "name", "건물명", "A4"],
+  "useName": ["USABILITY", "BDTYP_CD", "USE_NAME", "useName", "주용도", "A9"],
+  "pnu": ["PNU", "PNU_CD", "id", "A2"],
+  "heightSource": ["heightSource"]
+}

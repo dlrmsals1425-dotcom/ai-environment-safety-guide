@@ -1,0 +1,3 @@
+produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.
+Adaptation: bilinear sampling to Web Mercator Mapbox RGB PNG tiles. Not a ground-only DEM.
+Additional adaptation: 3x3 morphological opening. Estimated ground; not validated bare-earth DTM.

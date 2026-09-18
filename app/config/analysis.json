@@ -1,0 +1,8 @@
+{
+  "cellSizeM": 4,
+  "stepMinutes": 10,
+  "z0": 0,
+  "minAltDeg": 0,
+  "sunHoursMaxH": 16,
+  "groundPlaneM": 900
+}

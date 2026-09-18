@@ -1,0 +1,42 @@
+{
+  "name": "ai-environment-safety-guide",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "predev": "node tools/prepare-team-data.mjs",
+    "prebuild": "node tools/prepare-team-data.mjs",
+    "data:prepare": "node tools/prepare-team-data.mjs",
+    "data:check": "node tools/check-team-data.mjs",
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "demo:buildings": "node tools/generate_demo_buildings.mjs"
+  },
+  "dependencies": {
+    "@deck.gl/core": "^9.4.0",
+    "@deck.gl/layers": "^9.4.0",
+    "@deck.gl/maplibre": "^9.4.0",
+    "@deck.gl/mesh-layers": "^9.4.0",
+    "comlink": "^4.4.2",
+    "flatgeobuf": "^4.4.0",
+    "maplibre-gl": "^6.10.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "suncalc": "^1.9.0",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^18.3.24",
+    "@types/react-dom": "^18.3.7",
+    "@types/suncalc": "^1.9.2",
+    "@vitejs/plugin-react": "^5.0.2",
+    "jsdom": "^26.1.0",
+    "typescript": "~5.8.3",
+    "vite": "^7.1.5",
+    "vitest": "^4.1.11"
+  }
+}

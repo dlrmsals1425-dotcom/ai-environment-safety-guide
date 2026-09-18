@@ -1,0 +1,25 @@
+{
+  "buildings": {
+    "type": "geojson",
+    "url": "/data/demo/buildings_demo.geojson",
+    "metaUrl": "/data/demo/buildings_demo.meta.json"
+  },
+  "buildingsRealCandidates": [
+    {
+      "type": "flatgeobuf",
+      "url": "/data/buildings.fgb",
+      "metaUrl": "/data/buildings.meta.json"
+    },
+    {
+      "type": "geojson",
+      "url": "/data/buildings.geojson",
+      "metaUrl": "/data/buildings.meta.json"
+    }
+  ],
+  "facilities": {
+    "cctv": {
+      "url": "/data/facilities/cctv_sites.json",
+      "metaUrl": "/data/facilities/cctv_sites.meta.json"
+    }
+  }
+}

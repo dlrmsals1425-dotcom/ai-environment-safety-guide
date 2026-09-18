@@ -1,0 +1,82 @@
+{
+  "asOf": "2026-09-18",
+  "datasets": [
+    {
+      "id": "buildings_raw",
+      "status": "copied",
+      "path": "source-data/AL_D010_41_20260909.zip",
+      "role": "원천 경기도 GIS건물통합정보"
+    },
+    {
+      "id": "buildings_processed",
+      "status": "copied",
+      "path": "app/public/data/buildings.geojson",
+      "features": 63882,
+      "role": "덕양구 건물형상 및 대장/추정 높이"
+    },
+    {
+      "id": "cctv_workbook",
+      "status": "copied",
+      "path": "source-data/방범용 CCTV 및 비상벨 설치 현황_2026년 1월.xlsx",
+      "sites": 1800
+    },
+    {
+      "id": "cctv_public_csv",
+      "status": "copied",
+      "path": "app/data/reference/public-cctv-goyang-20260917.csv",
+      "rows": 2356,
+      "sourceUrl": "https://www.data.go.kr/data/15013094/standard.do"
+    },
+    {
+      "id": "cctv_processed",
+      "status": "copied",
+      "path": "app/public/data/facilities/cctv_sites.json",
+      "sites": 1800,
+      "deogyangSites": 919,
+      "officialCoordinates": 895,
+      "needsReview": 24
+    },
+    {
+      "id": "terrain_dem",
+      "status": "not_acquired",
+      "sourceUrl": "https://map.ngii.go.kr/",
+      "notes": "덕양구 도엽/해상도/제작일/수직기준/제공조건 확인 필요"
+    },
+    {
+      "id": "surface_dsm_lidar",
+      "status": "not_acquired",
+      "sourceUrl": "https://www.ngii.go.kr/nlsc/nsoutput/ouputintro3",
+      "notes": "소개자료만 확인; 고양시 최신 원본 다운로드 확인 전"
+    },
+    {
+      "id": "trees",
+      "status": "catalog_identified",
+      "sourceUrl": "https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId=6KGDO3G2RBYYQDTXIC1633845940&infSeq=1",
+      "notes": "개별 수고/수관/고양시 커버리지 미확인, 아직 다운로드하지 않음"
+    },
+    {
+      "id": "weather_forecast",
+      "status": "catalog_identified",
+      "sourceUrl": "https://www.data.go.kr/data/15084084/openapi.do",
+      "notes": "키발급/호출/원천수집/앱연동 미실행"
+    },
+    {
+      "id": "weather_aws",
+      "status": "catalog_identified",
+      "sourceUrl": "https://data.kma.go.kr/data/grnd/selectAwsRltmList.do",
+      "notes": "시범구역 관측지점/기간/품질 확인 및 데이터 수집 필요"
+    },
+    {
+      "id": "field_labels",
+      "status": "not_acquired",
+      "notes": "그늘·노면상태 등 시간과 위치를 가진 현장 검증자료 필요"
+    },
+    {
+      "id": "walk_network",
+      "status": "not_acquired",
+      "notes": "2차 경로기능을 위한 보행망·통행제약 데이터"
+    }
+  ],
+  "scope": "Legacy Deogyang baseline and original planning inventory; see seoul-datasets.json for current Seoul collection",
+  "supersededBy": "seoul-datasets.json"
+}

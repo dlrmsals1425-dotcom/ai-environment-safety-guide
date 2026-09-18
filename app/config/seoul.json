@@ -1,0 +1,42 @@
+{
+  "presets": [
+    {
+      "id": "seoul-forest",
+      "label": "서울숲",
+      "lat": 37.5445,
+      "lon": 127.0374,
+      "zoom": 15.5
+    },
+    {
+      "id": "namsan",
+      "label": "남산",
+      "lat": 37.5512,
+      "lon": 126.9882,
+      "zoom": 15
+    },
+    {
+      "id": "yeouido",
+      "label": "여의도",
+      "lat": 37.5264,
+      "lon": 126.925,
+      "zoom": 15
+    }
+  ],
+  "data": {
+    "buildingsIndexUrl": "/data/seoul/buildings/index.json",
+    "treesIndexUrl": "/data/seoul/trees/index.json",
+    "snowBasesUrl": "/data/seoul/snow-bases.geojson",
+    "snowBasesMetaUrl": "/data/seoul/snow-bases.meta.json",
+    "terrainMetaUrl": "/data/seoul/ground/meta.json",
+    "terrainAttributionUrl": "/data/seoul/terrain/ATTRIBUTION.txt"
+  },
+  "terrain": {
+    "label": "Copernicus 30m급 표면고도(DSM) 참고",
+    "fallbackTilesUrl": "/data/seoul/terrain/{z}/{x}/{y}.png"
+  },
+  "limits": {
+    "viewAreaM": 500,
+    "maxTilesPerLoad": 16,
+    "treeRenderCap": 6000
+  }
+}

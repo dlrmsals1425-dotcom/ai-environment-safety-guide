@@ -1,0 +1,17 @@
+{
+  "_note": "용도별 층고(m)와 파라펫 보정. 관할 표본으로 캘리브레이션할 것. HEIGHT 속성은 검증용.",
+  "floorHeightM": {
+    "공동주택": 2.95,
+    "단독주택": 3.2,
+    "제1종근린생활": 3.5,
+    "제2종근린생활": 3.5,
+    "업무시설": 3.6,
+    "공장": 4.5,
+    "_default": 3.2
+  },
+  "parapetM": 1.0,
+  "measuredMinM": 2.0,
+  "measuredMaxM": 300.0,
+  "measuredAbsTolM": 5.0,
+  "measuredRelTol": 0.4
+}

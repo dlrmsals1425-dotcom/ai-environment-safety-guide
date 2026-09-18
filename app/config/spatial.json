@@ -1,0 +1,6 @@
+{
+  "cellSizeM": 50,
+  "aoiBufferM": 300,
+  "minHeightM": 3,
+  "minAreaM2": 10
+}

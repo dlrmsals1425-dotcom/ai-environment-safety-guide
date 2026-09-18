@@ -1,0 +1,23 @@
+name: 오류 신고
+description: 재현 방법을 남겨 함께 수정합니다.
+title: '[오류] '
+labels: [bug]
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: 재현 순서
+      description: 지역, 날짜, 시간, 켠 레이어와 조작 순서를 적어 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 기대한 동작과 실제 동작
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 실행 환경 / 캡처
+      description: 브라우저, 운영체제, 샘플/전체 데이터 여부, 화면 캡처. API 키는 첨부하지 마세요.

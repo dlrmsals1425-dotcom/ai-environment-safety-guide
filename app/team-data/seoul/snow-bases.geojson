@@ -1,0 +1,1897 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "snow-base-0",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9829379,
+          37.5757556
+        ]
+      },
+      "properties": {
+        "id": "snow-base-0",
+        "agency": "종로구",
+        "baseId": "종로(구)_002",
+        "kind": "전진",
+        "location": "송현동 61-1 (풍문여고앞)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 2,
+        "rawX": "198492800.00",
+        "rawY": "552912200.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-1",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.961415,
+          37.572406
+        ]
+      },
+      "properties": {
+        "id": "snow-base-1",
+        "agency": "종로구",
+        "baseId": "종로(구)_001",
+        "kind": "발진",
+        "location": "행촌동 180-2 (현저고가 하부)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 3,
+        "rawX": "196591400.00",
+        "rawY": "552541000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-2",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9816991,
+          37.5587788
+        ]
+      },
+      "properties": {
+        "id": "snow-base-2",
+        "agency": "중구",
+        "baseId": "중(구)_001",
+        "kind": "발진",
+        "location": "중구 회현동1가 203-4",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 4,
+        "rawX": "198383000.00",
+        "rawY": "551028000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-3",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0032825,
+          37.5669793
+        ]
+      },
+      "properties": {
+        "id": "snow-base-3",
+        "agency": "중구",
+        "baseId": "중(구)_002",
+        "kind": "전진",
+        "location": "을지로 227",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 5,
+        "rawX": "200290000.00",
+        "rawY": "551938000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-4",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.012754,
+          37.551995
+        ]
+      },
+      "properties": {
+        "id": "snow-base-4",
+        "agency": "중구",
+        "baseId": "중(구)_003",
+        "kind": "전진",
+        "location": "동호로5길 19",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 6,
+        "rawX": "201127000.00",
+        "rawY": "550275000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-5",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9582227,
+          37.5320681
+        ]
+      },
+      "properties": {
+        "id": "snow-base-5",
+        "agency": "용산구",
+        "baseId": "용산(구)_003",
+        "kind": "전진",
+        "location": "한강로3가25-2",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 7,
+        "rawX": "196307400.00",
+        "rawY": "548064100.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-6",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9835672,
+          37.5192774
+        ]
+      },
+      "properties": {
+        "id": "snow-base-6",
+        "agency": "용산구",
+        "baseId": "용산(구)_004",
+        "kind": "전진",
+        "location": "동작대교 하부 (용산동6가 69-11)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 8,
+        "rawX": "198547300.00",
+        "rawY": "546643800.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-7",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9934911,
+          37.5195136
+        ]
+      },
+      "properties": {
+        "id": "snow-base-7",
+        "agency": "용산구",
+        "baseId": "용산(구)_002",
+        "kind": "전진",
+        "location": "잠수교북단 좌측 (서빙고동 271-81)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 9,
+        "rawX": "199424600.00",
+        "rawY": "546669900.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-8",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9699233,
+          37.5350477
+        ]
+      },
+      "properties": {
+        "id": "snow-base-8",
+        "agency": "용산구",
+        "baseId": "용산(구)_001",
+        "kind": "발진",
+        "location": "욱천고가하부 (문배동 37-14)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 10,
+        "rawX": "197341700.00",
+        "rawY": "548394400.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-9",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0434101,
+          37.538225
+        ]
+      },
+      "properties": {
+        "id": "snow-base-9",
+        "agency": "성동구",
+        "baseId": "성동(구)_002",
+        "kind": "전진",
+        "location": "성동구 성수1가1동 510-1",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 11,
+        "rawX": "203836600.00",
+        "rawY": "548747500.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-10",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0597228,
+          37.5513121
+        ]
+      },
+      "properties": {
+        "id": "snow-base-10",
+        "agency": "성동구",
+        "baseId": "성동(구)_001",
+        "kind": "발진",
+        "location": "성동구 송정동73-75",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 12,
+        "rawX": "205277400.00",
+        "rawY": "550200800.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-11",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.1062368,
+          37.5448666
+        ]
+      },
+      "properties": {
+        "id": "snow-base-11",
+        "agency": "광진구",
+        "baseId": "광진(구)_002",
+        "kind": "전진",
+        "location": "광장동311(광장동체육센터부지내)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 13,
+        "rawX": "209388415.00",
+        "rawY": "549489057.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-12",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0985853,
+          37.5391099
+        ]
+      },
+      "properties": {
+        "id": "snow-base-12",
+        "agency": "광진구",
+        "baseId": "광진(구)_001",
+        "kind": "발진",
+        "location": "구의동 623-1 (올림픽대교 하부)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 14,
+        "rawX": "208712900.00",
+        "rawY": "548849400.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-13",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0699364,
+          37.5842784
+        ]
+      },
+      "properties": {
+        "id": "snow-base-13",
+        "agency": "동대문구",
+        "baseId": "동대문(구)_001",
+        "kind": "발진",
+        "location": "휘경동49-324",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 15,
+        "rawX": "206177200.00",
+        "rawY": "553860300.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-14",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0450779,
+          37.577634
+        ]
+      },
+      "properties": {
+        "id": "snow-base-14",
+        "agency": "동대문구",
+        "baseId": "동대문(구)_003",
+        "kind": "이동식",
+        "location": "전농동624-10",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 16,
+        "rawX": "203981900.00",
+        "rawY": "553121500.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-15",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0749716,
+          37.5802163
+        ]
+      },
+      "properties": {
+        "id": "snow-base-15",
+        "agency": "동대문구",
+        "baseId": "동대문(구)_002",
+        "kind": "전진",
+        "location": "장안동283-1",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 17,
+        "rawX": "206622300.00",
+        "rawY": "553409800.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-16",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.108569,
+          37.6065974
+        ]
+      },
+      "properties": {
+        "id": "snow-base-16",
+        "agency": "중랑구",
+        "baseId": "중랑(구)_002",
+        "kind": "전진",
+        "location": "망우동 67-3",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 18,
+        "rawX": "209586600.00",
+        "rawY": "556340700.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-17",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0720299,
+          37.598548
+        ]
+      },
+      "properties": {
+        "id": "snow-base-17",
+        "agency": "중랑구",
+        "baseId": "중랑(구)_001",
+        "kind": "발진",
+        "location": "중화동 403-29",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 19,
+        "rawX": "206360900.00",
+        "rawY": "555444200.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-18",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0679175,
+          37.615198
+        ]
+      },
+      "properties": {
+        "id": "snow-base-18",
+        "agency": "성북구",
+        "baseId": "성북(구)_003",
+        "kind": "발진",
+        "location": "석계역(석관동375)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 20,
+        "rawX": "205996400.00",
+        "rawY": "557291900.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-19",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0267185,
+          37.6043342
+        ]
+      },
+      "properties": {
+        "id": "snow-base-19",
+        "agency": "성북구",
+        "baseId": "성북(구)_002",
+        "kind": "전진",
+        "location": "길음역 (하월곡동 104-134)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 21,
+        "rawX": "202359300.00",
+        "rawY": "556084300.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-20",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0012446,
+          37.6080078
+        ]
+      },
+      "properties": {
+        "id": "snow-base-20",
+        "agency": "성북구",
+        "baseId": "성북(구)_001",
+        "kind": "전진",
+        "location": "국민대 앞 (정릉동 산1-286)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 22,
+        "rawX": "200109900.00",
+        "rawY": "556491700.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-21",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0308853,
+          37.6110925
+        ]
+      },
+      "properties": {
+        "id": "snow-base-21",
+        "agency": "강북구",
+        "baseId": "강북(구)_003",
+        "kind": "전진",
+        "location": "미아동 38-26",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 23,
+        "rawX": "202726997.00",
+        "rawY": "556834515.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-22",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0231458,
+          37.6359536
+        ]
+      },
+      "properties": {
+        "id": "snow-base-22",
+        "agency": "강북구",
+        "baseId": "강북(구)_002",
+        "kind": "전진",
+        "location": "수유동 45-33",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 24,
+        "rawX": "202042965.00",
+        "rawY": "559593637.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-23",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0292804,
+          37.6271582
+        ]
+      },
+      "properties": {
+        "id": "snow-base-23",
+        "agency": "강북구",
+        "baseId": "강북(구)_004",
+        "kind": "전진",
+        "location": "미아동 198-54",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 25,
+        "rawX": "202584733.00",
+        "rawY": "558617590.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-24",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0122227,
+          37.6640815
+        ]
+      },
+      "properties": {
+        "id": "snow-base-24",
+        "agency": "강북구",
+        "baseId": "강북(구)_001",
+        "kind": "발진",
+        "location": "우이동 265-24",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 26,
+        "rawX": "201078432.00",
+        "rawY": "562715367.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-25",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0127956,
+          37.6337866
+        ]
+      },
+      "properties": {
+        "id": "snow-base-25",
+        "agency": "강북구",
+        "baseId": "강북(구)_005",
+        "kind": "전진",
+        "location": "인수봉로 159",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 27,
+        "rawX": "201129432.00",
+        "rawY": "559352951.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-26",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0439174,
+          37.6910865
+        ]
+      },
+      "properties": {
+        "id": "snow-base-26",
+        "agency": "도봉구",
+        "baseId": "도봉(구)_002",
+        "kind": "전진",
+        "location": "도봉동 354 (음식물중간처리장)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 28,
+        "rawX": "203873500.00",
+        "rawY": "565713500.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-27",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.053705,
+          37.6417285
+        ]
+      },
+      "properties": {
+        "id": "snow-base-27",
+        "agency": "도봉구",
+        "baseId": "도봉(구)_001",
+        "kind": "발진",
+        "location": "도봉구 덕릉로66길84-1(창동)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 29,
+        "rawX": "204739900.00",
+        "rawY": "560235700.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-28",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0756682,
+          37.6632905
+        ]
+      },
+      "properties": {
+        "id": "snow-base-28",
+        "agency": "노원구",
+        "baseId": "노원(구)_003",
+        "kind": "전진",
+        "location": "상계동 95-377",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 30,
+        "rawX": "206676400.00",
+        "rawY": "562630200.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-29",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0651842,
+          37.6316984
+        ]
+      },
+      "properties": {
+        "id": "snow-base-29",
+        "agency": "노원구",
+        "baseId": "노원(구)_001",
+        "kind": "발진",
+        "location": "하계동 272-3",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 31,
+        "rawX": "205753800.00",
+        "rawY": "559123100.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-30",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0558529,
+          37.6411897
+        ]
+      },
+      "properties": {
+        "id": "snow-base-30",
+        "agency": "노원구",
+        "baseId": "노원(구)_002",
+        "kind": "이동식",
+        "location": "상계동 755-1",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 32,
+        "rawX": "204929500.00",
+        "rawY": "560176000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-31",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9059264,
+          37.6484588
+        ]
+      },
+      "properties": {
+        "id": "snow-base-31",
+        "agency": "은평구",
+        "baseId": "은평(구)_001",
+        "kind": "발진",
+        "location": "진관동 75-6",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 33,
+        "rawX": "191698000.00",
+        "rawY": "560985500.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-32",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9590542,
+          37.5714556
+        ]
+      },
+      "properties": {
+        "id": "snow-base-32",
+        "agency": "서대문구",
+        "baseId": "서대문(구)_002",
+        "kind": "이동식",
+        "location": "현저고가하부",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 34,
+        "rawX": "196382800.00",
+        "rawY": "552435600.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-33",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.936967,
+          37.5822181
+        ]
+      },
+      "properties": {
+        "id": "snow-base-33",
+        "agency": "서대문구",
+        "baseId": "서대문(구)_001",
+        "kind": "발진",
+        "location": "홍은동 428",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 35,
+        "rawX": "194432400.00",
+        "rawY": "553631200.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-34",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9299177,
+          37.5443038
+        ]
+      },
+      "properties": {
+        "id": "snow-base-34",
+        "agency": "마포구",
+        "baseId": "마포(구)_002",
+        "kind": "전진",
+        "location": "신수동 서강대교북단하부",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 36,
+        "rawX": "193806600.00",
+        "rawY": "549423600.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-35",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.89714,
+          37.5555324
+        ]
+      },
+      "properties": {
+        "id": "snow-base-35",
+        "agency": "마포구",
+        "baseId": "마포(구)_001",
+        "kind": "발진",
+        "location": "만원동 현진에버빌 앞",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 37,
+        "rawX": "190911300.00",
+        "rawY": "550672500.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-36",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8778613,
+          37.5289661
+        ]
+      },
+      "properties": {
+        "id": "snow-base-36",
+        "agency": "양천구",
+        "baseId": "양천(구)_002",
+        "kind": "전진",
+        "location": "목동 915 (목동주차장 내)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 38,
+        "rawX": "189204000.00",
+        "rawY": "547726000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-37",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8354973,
+          37.5063355
+        ]
+      },
+      "properties": {
+        "id": "snow-base-37",
+        "agency": "양천구",
+        "baseId": "양천(구)_001",
+        "kind": "발진",
+        "location": "신정로6길 9 (신정3동 1324-9)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 39,
+        "rawX": "185455000.00",
+        "rawY": "545220000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-38",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8458595,
+          37.5474703
+        ]
+      },
+      "properties": {
+        "id": "snow-base-38",
+        "agency": "강서구",
+        "baseId": "강서구,강서구_004",
+        "kind": "전진",
+        "location": "화곡동 산 73-8",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 40,
+        "rawX": "186378688.00",
+        "rawY": "549783904.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-39",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8673777,
+          37.5599753
+        ]
+      },
+      "properties": {
+        "id": "snow-base-39",
+        "agency": "강서구",
+        "baseId": "강서(구)_001",
+        "kind": "발진",
+        "location": "가양동 토목과창고",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 41,
+        "rawX": "188282200.00",
+        "rawY": "551168900.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-40",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8419885,
+          37.5393996
+        ]
+      },
+      "properties": {
+        "id": "snow-base-40",
+        "agency": "강서구",
+        "baseId": "강서구,강서구_005",
+        "kind": "전진",
+        "location": "가로공원로 237",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 42,
+        "rawX": "186035106.00",
+        "rawY": "548888713.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-41",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8466622,
+          37.569434
+        ]
+      },
+      "properties": {
+        "id": "snow-base-41",
+        "agency": "강서구",
+        "baseId": "강서(구)_002",
+        "kind": "발진",
+        "location": "가양동 성재중학교 옆",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 43,
+        "rawX": "186453600.00",
+        "rawY": "552221500.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-42",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8166048,
+          37.5640677
+        ]
+      },
+      "properties": {
+        "id": "snow-base-42",
+        "agency": "강서구",
+        "baseId": "강서구,강서구_003",
+        "kind": "전진",
+        "location": "마곡동 730-62",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 44,
+        "rawX": "183797054.00",
+        "rawY": "551630655.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-43",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8782817,
+          37.4867292
+        ]
+      },
+      "properties": {
+        "id": "snow-base-43",
+        "agency": "구로구",
+        "baseId": "구로(구)_004",
+        "kind": "전진",
+        "location": "구로동 701-2",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 45,
+        "rawX": "189235100.00",
+        "rawY": "543038200.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-44",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8751103,
+          37.5069706
+        ]
+      },
+      "properties": {
+        "id": "snow-base-44",
+        "agency": "구로구",
+        "baseId": "구로(구)_002",
+        "kind": "전진",
+        "location": "구로중앙로42길6 앞",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 46,
+        "rawX": "188957600.00",
+        "rawY": "545285100.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-45",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8927419,
+          37.4995988
+        ]
+      },
+      "properties": {
+        "id": "snow-base-45",
+        "agency": "구로구",
+        "baseId": "구로(구)_003",
+        "kind": "전진",
+        "location": "구로동 37-11",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 47,
+        "rawX": "190515600.00",
+        "rawY": "544465000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-46",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8639023,
+          37.491306
+        ]
+      },
+      "properties": {
+        "id": "snow-base-46",
+        "agency": "구로구",
+        "baseId": "구로(구)_001",
+        "kind": "발진",
+        "location": "개봉동 371-12",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 48,
+        "rawX": "187964100.00",
+        "rawY": "543547900.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-47",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9026453,
+          37.4383693
+        ]
+      },
+      "properties": {
+        "id": "snow-base-47",
+        "agency": "금천구",
+        "baseId": "금천(구)_001",
+        "kind": "발진",
+        "location": "시흥대로 47",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 49,
+        "rawX": "191384300.00",
+        "rawY": "537668400.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-48",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8987495,
+          37.5177774
+        ]
+      },
+      "properties": {
+        "id": "snow-base-48",
+        "agency": "영등포구",
+        "baseId": "영등포(구)_001",
+        "kind": "발진",
+        "location": "문래동3가 55-6",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 50,
+        "rawX": "191049000.00",
+        "rawY": "546482000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-49",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8964243,
+          37.5403616
+        ]
+      },
+      "properties": {
+        "id": "snow-base-49",
+        "agency": "영등포구",
+        "baseId": "영등포(구)_002",
+        "kind": "전진",
+        "location": "양평동4가 323-1",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 51,
+        "rawX": "190846200.00",
+        "rawY": "548988800.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-50",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9492307,
+          37.4999618
+        ]
+      },
+      "properties": {
+        "id": "snow-base-50",
+        "agency": "동작구",
+        "baseId": "동작(구)_002",
+        "kind": "전진",
+        "location": "상도동 415-1 (중앙하이츠@옆)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 52,
+        "rawX": "195510700.00",
+        "rawY": "544501100.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-51",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9549276,
+          37.5141289
+        ]
+      },
+      "properties": {
+        "id": "snow-base-51",
+        "agency": "동작구",
+        "baseId": "동작(구)_001",
+        "kind": "발진",
+        "location": "북고가차도하부 (본동 258-49)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 53,
+        "rawX": "196015200.00",
+        "rawY": "546073200.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-52",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9487673,
+          37.5161113
+        ]
+      },
+      "properties": {
+        "id": "snow-base-52",
+        "agency": "동작구",
+        "baseId": "동작(구)_003",
+        "kind": "전진",
+        "location": "한강철교 하부 (노량진동13-4)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 54,
+        "rawX": "195470700.00",
+        "rawY": "546293500.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-53",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9195454,
+          37.4898271
+        ]
+      },
+      "properties": {
+        "id": "snow-base-53",
+        "agency": "관악구",
+        "baseId": "관악(구)_002",
+        "kind": "전진",
+        "location": "신림동 1472-7",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 55,
+        "rawX": "192884800.00",
+        "rawY": "543378100.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-54",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9242637,
+          37.4855882
+        ]
+      },
+      "properties": {
+        "id": "snow-base-54",
+        "agency": "관악구",
+        "baseId": "관악(구)_001",
+        "kind": "발진",
+        "location": "신림동 1469-9",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 56,
+        "rawX": "193301700.00",
+        "rawY": "542907300.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-55",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9887077,
+          37.4641923
+        ]
+      },
+      "properties": {
+        "id": "snow-base-55",
+        "agency": "서초구",
+        "baseId": "서초(구)_001",
+        "kind": "발진",
+        "location": "방배동 2911",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 57,
+        "rawX": "199001000.00",
+        "rawY": "540530000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-56",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0524643,
+          37.4543962
+        ]
+      },
+      "properties": {
+        "id": "snow-base-56",
+        "agency": "서초구",
+        "baseId": "서초(구)_002",
+        "kind": "이동식",
+        "location": "신원동 482-2",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 58,
+        "rawX": "204642000.00",
+        "rawY": "539444000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-57",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.074739,
+          37.500378
+        ]
+      },
+      "properties": {
+        "id": "snow-base-57",
+        "agency": "강남구",
+        "baseId": "강남(구)_001",
+        "kind": "발진",
+        "location": "대치동 3-3",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 59,
+        "rawX": "206608800.00",
+        "rawY": "544548700.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-58",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.076228,
+          37.4865943
+        ]
+      },
+      "properties": {
+        "id": "snow-base-58",
+        "agency": "강남구",
+        "baseId": "강남(구)_003",
+        "kind": "전진",
+        "location": "일원터널 앞",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 60,
+        "rawX": "206741700.00",
+        "rawY": "543019000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-59",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0526952,
+          37.4725893
+        ]
+      },
+      "properties": {
+        "id": "snow-base-59",
+        "agency": "강남구",
+        "baseId": "강남(구)_002",
+        "kind": "전진",
+        "location": "구룡지하차도 상부",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 61,
+        "rawX": "204661300.00",
+        "rawY": "541463200.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-60",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.1426612,
+          37.5022779
+        ]
+      },
+      "properties": {
+        "id": "snow-base-60",
+        "agency": "송파구",
+        "baseId": "송파(구)_001",
+        "kind": "발진",
+        "location": "오금동 110 도로과 창고",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 62,
+        "rawX": "212614500.00",
+        "rawY": "544766500.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-61",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.1252146,
+          37.4699353
+        ]
+      },
+      "properties": {
+        "id": "snow-base-61",
+        "agency": "송파구",
+        "baseId": "송파(구)_002",
+        "kind": "전진",
+        "location": "복정고가 하부 (장지동738-39)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 63,
+        "rawX": "211076600.00",
+        "rawY": "541174700.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-62",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0704028,
+          37.5108611
+        ]
+      },
+      "properties": {
+        "id": "snow-base-62",
+        "agency": "송파구",
+        "baseId": "송파(구)_003",
+        "kind": "전진",
+        "location": "잠실동 삼성교 하부",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 64,
+        "rawX": "206224500.00",
+        "rawY": "545711900.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-63",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.1755808,
+          37.5608905
+        ]
+      },
+      "properties": {
+        "id": "snow-base-63",
+        "agency": "강동구",
+        "baseId": "강동(구)_003",
+        "kind": "전진",
+        "location": "강일동 702번지",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 65,
+        "rawX": "215513200.00",
+        "rawY": "551276700.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-64",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.1572092,
+          37.5587504
+        ]
+      },
+      "properties": {
+        "id": "snow-base-64",
+        "agency": "강동구",
+        "baseId": "강동(구)_001",
+        "kind": "발진",
+        "location": "고덕동 300",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 66,
+        "rawX": "213890400.00",
+        "rawY": "551036300.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-65",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.1324084,
+          37.5638092
+        ]
+      },
+      "properties": {
+        "id": "snow-base-65",
+        "agency": "강동구",
+        "baseId": "강동(구)_002",
+        "kind": "전진",
+        "location": "암사동 98-12",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 67,
+        "rawX": "211698300.00",
+        "rawY": "551594400.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-66",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0754901,
+          37.4971213
+        ]
+      },
+      "properties": {
+        "id": "snow-base-66",
+        "agency": "동부도로사업소",
+        "baseId": "동부(사업소)_001",
+        "kind": "발진",
+        "location": "동부도로사업소(직영)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 68,
+        "rawX": "206675500.00",
+        "rawY": "544187300.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-67",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0696118,
+          37.5103832
+        ]
+      },
+      "properties": {
+        "id": "snow-base-67",
+        "agency": "동부도로사업소",
+        "baseId": "동부(사업소)_002",
+        "kind": "전진",
+        "location": "삼성교 하부(용역) (잠실동 866-3)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 69,
+        "rawX": "206154600.00",
+        "rawY": "545658800.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-68",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8851546,
+          37.5859849
+        ]
+      },
+      "properties": {
+        "id": "snow-base-68",
+        "agency": "서부도로사업소",
+        "baseId": "서부(사업소)_001",
+        "kind": "발진",
+        "location": "서부도로사업소 (가양대로 203)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 70,
+        "rawX": "189856400.00",
+        "rawY": "554053600.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-69",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9021866,
+          37.5510939
+        ]
+      },
+      "properties": {
+        "id": "snow-base-69",
+        "agency": "서부도로사업소",
+        "baseId": "서부(사업소)_002",
+        "kind": "전진",
+        "location": "강변북로 (망원동 222)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 71,
+        "rawX": "191356700.00",
+        "rawY": "550179400.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-70",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0209436,
+          37.46136
+        ]
+      },
+      "properties": {
+        "id": "snow-base-70",
+        "agency": "남부도로사업소",
+        "baseId": "남부(사업소)_002",
+        "kind": "발진",
+        "location": "강남순환선암교하부",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 72,
+        "rawX": "201852900.00",
+        "rawY": "540215800.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-71",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8972939,
+          37.4936508
+        ]
+      },
+      "properties": {
+        "id": "snow-base-71",
+        "agency": "남부도로사업소",
+        "baseId": "남부(사업소)_001",
+        "kind": "발진",
+        "location": "남부도로사업소 (대림로 145)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 73,
+        "rawX": "190917400.00",
+        "rawY": "543804400.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-72",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.026418,
+          37.4847239
+        ]
+      },
+      "properties": {
+        "id": "snow-base-72",
+        "agency": "남부도로사업소",
+        "baseId": "남부(사업소)_003",
+        "kind": "전진",
+        "location": "서초IC",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 74,
+        "rawX": "202336500.00",
+        "rawY": "542809000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-73",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.9908816,
+          37.6113654
+        ]
+      },
+      "properties": {
+        "id": "snow-base-73",
+        "agency": "북부도로사업소",
+        "baseId": "북부(사업소)_002",
+        "kind": "전진",
+        "location": "북악터널 앞",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 75,
+        "rawX": "199194900.00",
+        "rawY": "556864400.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-74",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.037596,
+          37.6337511
+        ]
+      },
+      "properties": {
+        "id": "snow-base-74",
+        "agency": "북부도로사업소",
+        "baseId": "북부(사업소)_001",
+        "kind": "발진",
+        "location": "사업소",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 76,
+        "rawX": "203318500.00",
+        "rawY": "559349600.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-75",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0565036,
+          37.5592893
+        ]
+      },
+      "properties": {
+        "id": "snow-base-75",
+        "agency": "성동도로사업소",
+        "baseId": "성동(사업소)_001",
+        "kind": "발진",
+        "location": "현 사업소",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 77,
+        "rawX": "204992400.00",
+        "rawY": "551086000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-76",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0562904,
+          37.5587092
+        ]
+      },
+      "properties": {
+        "id": "snow-base-76",
+        "agency": "성동도로사업소",
+        "baseId": "성동(사업소)_002",
+        "kind": "전진",
+        "location": "구 사업소",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 78,
+        "rawX": "204973600.00",
+        "rawY": "551021600.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-77",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8306272,
+          37.5733819
+        ]
+      },
+      "properties": {
+        "id": "snow-base-77",
+        "agency": "강서도로사업소",
+        "baseId": "강서(사업소)_001",
+        "kind": "발진",
+        "location": "강서구 양천로 237",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 79,
+        "rawX": "185037800.00",
+        "rawY": "552662100.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-78",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8737749,
+          37.5068043
+        ]
+      },
+      "properties": {
+        "id": "snow-base-78",
+        "agency": "강서도로사업소",
+        "baseId": "강서(사업소)_002",
+        "kind": "전진",
+        "location": "오금교 동측하천주차장",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 80,
+        "rawX": "188839500.00",
+        "rawY": "545266800.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-79",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.8776745,
+          37.5297047
+        ]
+      },
+      "properties": {
+        "id": "snow-base-79",
+        "agency": "서울시설공단",
+        "baseId": "시설공단_001",
+        "kind": "발진",
+        "location": "(목동)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 81,
+        "rawX": "189187600.00",
+        "rawY": "547808000.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-80",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0272218,
+          37.484502
+        ]
+      },
+      "properties": {
+        "id": "snow-base-80",
+        "agency": "서울시설공단",
+        "baseId": "시설공단_004",
+        "kind": "전진",
+        "location": "(서초)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 82,
+        "rawX": "202407600.00",
+        "rawY": "542784400.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-81",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.1164625,
+          37.4799905
+        ]
+      },
+      "properties": {
+        "id": "snow-base-81",
+        "agency": "서울시설공단",
+        "baseId": "시설공단_003",
+        "kind": "전진",
+        "location": "(탄천)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 83,
+        "rawX": "210301000.00",
+        "rawY": "542289700.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-82",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.973249,
+          37.6066389
+        ]
+      },
+      "properties": {
+        "id": "snow-base-82",
+        "agency": "서울시설공단",
+        "baseId": "시설공단_007",
+        "kind": "이동식",
+        "location": "(정릉터널)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 84,
+        "rawX": "197637900.00",
+        "rawY": "556340100.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-83",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0885441,
+          37.6190802
+        ]
+      },
+      "properties": {
+        "id": "snow-base-83",
+        "agency": "서울시설공단",
+        "baseId": "시설공단_002",
+        "kind": "전진",
+        "location": "(태릉)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 85,
+        "rawX": "207817100.00",
+        "rawY": "557724300.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-84",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0595847,
+          37.4758891
+        ]
+      },
+      "properties": {
+        "id": "snow-base-84",
+        "agency": "서울시설공단",
+        "baseId": "시설공단_005",
+        "kind": "전진",
+        "location": "(구룡)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 86,
+        "rawX": "205270500.00",
+        "rawY": "541829800.00"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "snow-base-85",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0883617,
+          37.6190497
+        ]
+      },
+      "properties": {
+        "id": "snow-base-85",
+        "agency": "서울시설공단",
+        "baseId": "시설공단_006",
+        "kind": "이동식",
+        "location": "(태릉기지앞안전지대)",
+        "coordinateStatus": "inferred-projection",
+        "sourceRow": 87,
+        "rawX": "207801000.00",
+        "rawY": "557720900.00"
+      }
+    }
+  ]
+}

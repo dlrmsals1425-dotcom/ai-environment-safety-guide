@@ -1,0 +1,118 @@
+{
+  "asOf": "2026-09-18",
+  "targetRegion": "서울특별시",
+  "mapPlatform": "MapLibre GL JS + OpenStreetMap",
+  "datasets": [
+    {
+      "id": "SEOUL_BUILDINGS_20260909",
+      "status": "downloaded_profiled",
+      "path": "source-data/seoul/buildings/AL_D010_11_20260909.zip",
+      "records": 695754,
+      "sourceUrl": "https://www.vworld.kr/dtmk/dtmk_ntads_s002.do?svcCde=NA&dsId=18",
+      "license": "CC BY",
+      "crs": "EPSG:5186",
+      "baseDate": "2026-09-09",
+      "positiveHeightCount": 305753,
+      "notes": [
+        "Height A16 in metres per official column definition; aboveground floors A26",
+        "Positive height is not a validated height; maximum 11700m needs review",
+        "Legacy Deogyang height cap 300m is not appropriate as automatic Seoul exclusion"
+      ]
+    },
+    {
+      "id": "SEOUL_STREET_TREES",
+      "status": "downloaded_profiled",
+      "path": "source-data/seoul/trees/TN_STTREE_W_SHP.zip",
+      "records": 257235,
+      "sourceUrl": "https://data.seoul.go.kr/dataList/OA-1325/A/1/datasetView.do",
+      "license": "KOGL Type 1 attribution",
+      "crs": "WGS84 geographic (.prj)",
+      "encoding": "CP949",
+      "fileDate": "2013-02-04",
+      "notes": [
+        "Jongno missing per catalogue; dataset is not a current tree census",
+        "THT_HG tree height; WTRTB_BT crown width; inspect units and outliers before analysis",
+        "49 points outside broad Seoul longitude/latitude bounds in initial screening"
+      ]
+    },
+    {
+      "id": "SEOUL_PARK_PRIVATE_TREES",
+      "status": "downloaded_profiled",
+      "path": "source-data/seoul/trees/TN_PARK_ND_PVTLND_WDPT_W_SHP.zip",
+      "records": 178390,
+      "sourceUrl": "https://data.seoul.go.kr/dataList/OA-1324/S/1/datasetView.do",
+      "license": "KOGL Type 1 attribution",
+      "encoding": "CP949",
+      "notes": [
+        "Historical public archive; trees above DBH threshold only",
+        "Raw source may contain owner/manager attributes; those are unnecessary for shade analysis and should be omitted from application exports"
+      ]
+    },
+    {
+      "id": "SEOUL_PROTECTED_OLD_TREES",
+      "status": "downloaded_profiled",
+      "path": "source-data/seoul/trees/TN_NRSTR_ND_OBT_W_SHP.zip",
+      "records": 346,
+      "sourceUrl": "https://data.seoul.go.kr/dataList/OA-1323/S/1/datasetView.do",
+      "license": "KOGL Type 1 attribution",
+      "encoding": "CP949"
+    },
+    {
+      "id": "NGII_DEM_90M_REFERENCE",
+      "status": "downloaded_reference_only",
+      "path": "source-data/seoul/terrain/NGII_DEM_90m_한반도.zip",
+      "sourceUrl": "https://www.vworld.kr/dtmk/dtmk_ntads_s002.do?svcCde=MK&dsId=30206",
+      "catalogResolutionM": 90,
+      "catalogCrs": "EPSG:5179",
+      "license": "CC BY-NC-ND",
+      "notes": [
+        "Whole Korean Peninsula; not Seoul-only",
+        "Original ZIP preserved; not a fine terrain or street-risk analysis substitute",
+        "Review derivative and publication rights before processing/publication"
+      ]
+    },
+    {
+      "id": "COPERNICUS_GLO30_SEOUL_COVERAGE",
+      "status": "downloaded_header_verified",
+      "path": "source-data/seoul/terrain/copernicus-glo30/",
+      "sourceUrl": "https://registry.opendata.aws/copernicus-dem/",
+      "nominalResolutionM": 30,
+      "gridSpacingArcSeconds": 1,
+      "crs": "EPSG:4326",
+      "surfaceType": "DSM, includes buildings and vegetation",
+      "tiles": [
+        "N37E126",
+        "N37E127"
+      ],
+      "licenseFile": "source-data/seoul/terrain/copernicus-glo30/eula_F.pdf",
+      "notes": [
+        "Not Seoul-government data; global alternative for comparison",
+        "Two full tiles cover Seoul and surrounding areas; not clipped to Seoul boundary",
+        "Do not add building/tree height directly on top as if bare-earth terrain",
+        "Height error models and metadata XML included"
+      ]
+    },
+    {
+      "id": "SEOUL_DEM_DSM_1M_AND_LIDAR",
+      "status": "provision_process_required_not_downloaded",
+      "sourceUrl": "https://openlab.eseoul.go.kr/",
+      "catalogueFile": "source-data/seoul/access-guides/공개제한 공간정보 개방 목록_2026.xlsx",
+      "notes": [
+        "Citywide DEM1m DSM1m LiDAR and building-height spatial data marked restricted",
+        "Road-area DEM1m DSM1m and LiDAR marked public in 2026 list; no direct file URL found in published FAQ",
+        "Academic use application, supporting security documents and research-plan example downloaded; no application submitted"
+      ]
+    },
+    {
+      "id": "GOOGLE_MAPS_BASEMAP",
+      "status": "chosen_not_implemented",
+      "sourceUrl": "https://developers.google.com/maps/documentation/javascript/3d/overview",
+      "notes": [
+        "Separate Google API project/key and billing setup required before implementation",
+        "Seoul photorealistic3D coverage and altitude behaviour must be verified",
+        "No Google map content downloaded for offline analysis"
+      ]
+    }
+  ],
+  "implementationReport": "docs/06-지형건물-통합일조-구현.md"
+}

@@ -1,0 +1,26 @@
+**/node_modules/
+**/dist/
+**/.vite/
+**/__pycache__/
+**/*.tsbuildinfo
+**/.env
+**/.env.*
+**/coverage/
+/source-data/
+app/public/data/buildings.geojson
+app/public/data/facilities/
+app/data/reference/
+
+# Local-only originals, derived full datasets, acceptance logs and legacy records.
+.artifacts/
+/data/
+/reference/
+app/data/
+app/docs/
+**/.vercel/
+**/*.log
+**/*.pem
+**/*.key
+**/*.pfx
+.DS_Store
+Thumbs.db
