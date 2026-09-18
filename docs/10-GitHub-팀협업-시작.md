@@ -2,9 +2,9 @@
 
 저장소: https://github.com/dlrmsals1425-dotcom/ai-environment-safety-guide
 
-공개 범위는 **비공개**입니다. 사용자 요청에 따라 팀원 초대는 나중에 진행합니다.
+공개 범위는 **공개**입니다. 사용자 후속 요청으로 공개로 전환했으며, 팀원 초대는 나중에 진행합니다. 누구나 코드·문서를 읽을 수 있지만 직접 push 권한은 저장소 관리자와 초대한 팀원에게만 있습니다.
 
-**설정 결과:** Issues·Discussions·PR 양식·자동검사를 활성화했습니다. 현재 계정의 비공개 저장소는 GitHub Pro가 필요하다는 API 응답으로 `main` 브랜치 보호 설정이 거절되었습니다. 따라서 PR 검토는 운영 규칙이며 시스템이 강제하지는 않습니다. 비공개를 유지했고 요금제 변경은 하지 않았습니다. 팀원이 합류한 뒤 강제 승인/직접 push 차단이 필요하면 플랜 또는 조직 구성을 별도로 결정합니다.
+**설정 결과:** Issues·Discussions·PR 양식·자동검사를 활성화했습니다. 공개 전환 후 `main`에 PR과 `Test and build` 통과를 요구하는 보호를 설정했습니다. 아직 팀원이 없어 필수 승인 리뷰는 0명이며 관리자 강제 적용은 꺼져 있습니다. 팀원 합류 후 승인 리뷰 수를 조정할 수 있습니다.
 
 ## 관리자가 팀원 초대하기
 
@@ -13,7 +13,7 @@
 3. 아이디를 검색하고 초대를 보냅니다.
 4. 팀원이 이메일 또는 GitHub 알림에서 수락하면 코드·Issues·PR에 접근할 수 있습니다.
 
-개인 계정의 비공개 저장소에서 협업자는 코드 수정 권한을 갖습니다. 읽기 전용 등 세분화된 역할이 필요하면 조직 저장소 구성을 별도로 검토합니다. 안내 기준: [GitHub 초대 방법](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/repository-access-and-collaboration/inviting-collaborators-to-a-personal-repository), [개인 저장소 권한](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/repository-access-and-collaboration/permission-levels-for-a-personal-account-repository).
+협업자로 초대한 팀원은 코드 수정 권한을 갖습니다. 읽기 전용 등 세분화된 역할이 필요하면 조직 저장소 구성을 별도로 검토합니다. 안내 기준: [GitHub 초대 방법](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/repository-access-and-collaboration/inviting-collaborators-to-a-personal-repository), [개인 저장소 권한](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/repository-access-and-collaboration/permission-levels-for-a-personal-account-repository).
 
 ## 팀원이 처음 실행하기
 
