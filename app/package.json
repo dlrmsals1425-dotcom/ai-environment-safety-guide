@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "build:vercel": "node tools/prepare-vercel-data.mjs && node tools/check-team-data.mjs && npm run build",
     "predev": "node tools/prepare-team-data.mjs",
     "prebuild": "node tools/prepare-team-data.mjs",
     "data:prepare": "node tools/prepare-team-data.mjs",
@@ -34,6 +35,7 @@
     "@types/react-dom": "^18.3.7",
     "@types/suncalc": "^1.9.2",
     "@vitejs/plugin-react": "^5.0.2",
+    "fflate": "^0.8.3",
     "jsdom": "^26.1.0",
     "typescript": "~5.8.3",
     "vite": "^7.1.5",

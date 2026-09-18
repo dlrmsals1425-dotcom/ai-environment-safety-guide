@@ -1,0 +1,9 @@
+{
+  "repository": "dlrmsals1425-dotcom/ai-environment-safety-guide",
+  "tag": "v0.1.0",
+  "asset": "seoul-runtime-data-v2026.09.18.zip",
+  "sha256": "02d9b38e6b49ee021ec126b269496a4ab56f42aa9d5dd2a21480b6b2b60b8523",
+  "bytes": 115881720,
+  "target": "app/public/data/seoul",
+  "description": "Full prepared Seoul runtime data, not raw source archives."
+}

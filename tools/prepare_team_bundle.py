@@ -112,10 +112,12 @@ def archive():
         for file in sorted(SOURCE.rglob('*')):
             if file.is_file(): out.write(file,file.relative_to(SOURCE).as_posix())
     digest=hashlib.file_digest(dest.open('rb'),'sha256').hexdigest()
-    write(ROOT/'data-catalog/runtime-release.json',{
+    manifest={
         'repository':'dlrmsals1425-dotcom/ai-environment-safety-guide','tag':'v0.1.0',
         'asset':dest.name,'sha256':digest,'bytes':dest.stat().st_size,
-        'target':'app/public/data/seoul','description':'Full prepared Seoul runtime data, not raw source archives.'})
+        'target':'app/public/data/seoul','description':'Full prepared Seoul runtime data, not raw source archives.'}
+    write(ROOT/'data-catalog/runtime-release.json',manifest)
+    write(ROOT/'app/config/data-release.json',manifest)
     print(json.dumps({'archive':str(dest),'bytes':dest.stat().st_size,'sha256':digest}))
 
 
