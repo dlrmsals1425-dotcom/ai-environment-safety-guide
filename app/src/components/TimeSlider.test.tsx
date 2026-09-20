@@ -22,13 +22,13 @@ describe('TimeSlider', () => {
     expect(useAppStore.getState().timeMinutes).toBe(600);
   });
 
-  it('동지 preset keeps year and sets 12/21', () => {
+  it('sets the requested calendar date without needing a season preset', () => {
     render(<TimeSlider />);
-    fireEvent.click(screen.getByTestId('preset-dongji'));
+    fireEvent.change(screen.getByLabelText('분석 날짜'), {target:{value:'2026-12-21'}});
     const d = useAppStore.getState().date;
     expect(d.getFullYear()).toBe(2026);
     expect(d.getMonth()).toBe(11);
     expect(d.getDate()).toBe(21);
-    expect(screen.getByText('2026-12-21')).toBeInTheDocument();
+    expect(screen.getByText(/2026-12-21/)).toBeInTheDocument();
   });
 });

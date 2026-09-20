@@ -12,7 +12,7 @@ export interface AnalysisGateInput {
  * 타일 상한·표시 상한·로드 오류에서는 계산을 시작하지 않는다.
  */
 export function analysisBlockReason(input: AnalysisGateInput): string | null {
-  if (!input.aoiPresent) return '관심구역(AOI)을 먼저 지정하세요.';
+  if (!input.aoiPresent) return '분석할 지역을 먼저 선택하세요.';
   if (!input.groundReady) return '추정 지면을 불러오는 중이거나 주변 3km 고도 자료가 부족합니다.';
 
   const b = input.buildings;

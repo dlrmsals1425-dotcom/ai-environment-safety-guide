@@ -1,5 +1,5 @@
 import { filterSnowBases, snowBaseKinds } from '@/data/snowBases';
-import { SEOUL_PRESETS, useAppStore } from '@/store/appStore';
+import { useAppStore } from '@/store/appStore';
 import { LAYER_IDS, LAYER_LABELS } from '@/types/layers';
 import type { DatasetState } from '@/types/seoul';
 
@@ -37,8 +37,6 @@ function datasetLine(
 export function LayerPanel() {
   const layers = useAppStore((s) => s.layers);
   const setLayerVisible = useAppStore((s) => s.setLayerVisible);
-  const presetId = useAppStore((s) => s.presetId);
-  const applyPreset = useAppStore((s) => s.applyPreset);
   const basemap = useAppStore((s) => s.basemap);
   const setBasemap = useAppStore((s) => s.setBasemap);
   const buildings = useAppStore((s) => s.seoulBuildings);
@@ -87,25 +85,8 @@ export function LayerPanel() {
 
   return (
     <aside className="panel panel-left" aria-label="보기 설정">
-      <h2 className="panel-title">지형·건물 통합 지도</h2>
-      <p className="panel-hint">언덕 위에 건물을 함께 표시하고, 같은 추정 지면으로 그늘과 일조시간을 계산합니다.</p>
-
-      <h2 className="panel-title">지역</h2>
-      <div className="preset-buttons" role="group" aria-label="지역 프리셋">
-        {SEOUL_PRESETS.map((p) => (
-          <button
-            key={p.id}
-            type="button"
-            className={p.id === presetId ? 'btn btn-active' : 'btn'}
-            aria-pressed={p.id === presetId}
-            onClick={() => applyPreset(p.id)}
-          >
-            {p.label}
-          </button>
-        ))}
-      </div>
-
-      <h2 className="panel-title">레이어</h2>
+      <section className="welcome-card"><span className="eyebrow">함께 준비하는 겨울길</span><h2>눈 오기 전에,<br/>먼저 살펴봐요.</h2><img src="/brand/seonje-seol-mascots.png" alt="기록하고 길을 안내하는 선제설 캐릭터"/><ol className="guide-steps"><li><b>1</b><span>지도를 원하는 동네로 옮겨요.</span></li><li><b>2</b><span>위의 <strong>이 주변 분석하기</strong>를 눌러요.</span></li><li><b>3</b><span>시간별 그늘과 판단 근거를 살펴봐요.</span></li></ol></section>
+      <h2 className="panel-title">지도에 표시할 정보</h2>
       <ul className="layer-list">
         {LAYER_IDS.map((id) => {
           const disabled = false;
@@ -132,9 +113,8 @@ export function LayerPanel() {
             ? '현재 표시: 선택 시각의 바닥 그늘. 관심구역과 주변 300m까지 표시합니다. 바깥 경계는 외부 건물 누락으로 참고용입니다.'
             : '바닥 그늘 표시가 꺼져 있습니다.'}
       </p>
-      <p className="panel-hint">3D 나무: 2013년 수고·수관폭 기반 간략 모형. 줄기 굵기·수관 형태는 시각화용이며, 크기 미상은 황갈색 나무 기호입니다. 수목 그늘은 아직 계산하지 않습니다.</p>
-      <p className="panel-hint">시간 조작 중에는 기본 4m 미리보기, 멈추면 기본 2m와 그늘 경계 0.5m 재계산을 적용합니다. 큰 구역은 간격이 커집니다. 갱신 중에는 마지막 그늘과 그 시각을 유지합니다. 0.5m는 경계의 계산 간격으로, 실제 정확도가 아닙니다. 30m급 추정 지형·단순 건물을 사용하며 기본 격자보다 좁은 그늘이 누락될 수 있습니다.</p>
-
+      <details className="detail-section"><summary>계산·표시의 한계</summary><p className="panel-hint">지면은 30m급 표면고도에서 추정했습니다. 그늘 경계의 0.5m는 실제 정확도가 아닙니다. 수목은 2013년 자료의 간략 모형이며 수목 차폐는 아직 계산하지 않습니다.</p></details>
+      <details className="detail-section"><summary>제설 지원시설 찾기</summary>
       <h2 className="panel-title">제설전진기지</h2>
       <p className="panel-hint">
         시설 위치 참고 자료입니다. 눈·결빙 위험 자료가 아닙니다.
@@ -210,6 +190,8 @@ export function LayerPanel() {
         일치하지만 현장 위치는 검증하지 않았습니다.
       </p>
 
+      </details>
+      <details className="detail-section"><summary>배경지도·데이터 출처</summary>
       <h2 className="panel-title">배경지도</h2>
       <div className="preset-buttons" role="group" aria-label="배경지도">
         <button
@@ -262,6 +244,7 @@ export function LayerPanel() {
       <a className="panel-hint" href="/data/seoul/ground/ATTRIBUTION.txt" target="_blank" rel="noreferrer">
         표면고도 자료 출처·변환 내역
       </a>
+      </details>
     </aside>
   );
 }

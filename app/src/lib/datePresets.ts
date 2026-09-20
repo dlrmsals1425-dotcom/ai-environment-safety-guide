@@ -32,6 +32,7 @@ export function applyDatePreset(
     case 'chubun':
       return at(year, 8, 22);
     case 'today':
-      return at(now.getFullYear(), now.getMonth(), now.getDate());
+      return koreaCalendar(now);
   }
 }
+import { koreaCalendar } from '@/lib/time';

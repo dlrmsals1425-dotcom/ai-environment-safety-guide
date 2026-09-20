@@ -47,9 +47,10 @@ export function shadowAzimuthNorthDeg(S: Vec3): number {
   return wrapDeg((Math.atan2(-S.x, -S.y) * 180) / Math.PI);
 }
 
+/** The date is a calendar carrier; selected time is always Korea Standard Time. */
 export function combineLocalDateMinutes(date: Date, timeMinutes: number): Date {
   const minutes = Math.max(0, Math.min(1439, Math.round(timeMinutes)));
-  return new Date(
+  return new Date(Date.UTC(
     date.getFullYear(),
     date.getMonth(),
     date.getDate(),
@@ -57,7 +58,7 @@ export function combineLocalDateMinutes(date: Date, timeMinutes: number): Date {
     minutes % 60,
     0,
     0,
-  );
+  )-9*60*60*1000);
 }
 
 export function findSolarNoon(
@@ -78,5 +79,5 @@ export function findSolarNoon(
 }
 
 export function sunTimes(date: Date, lat: number, lon: number) {
-  return SunCalc.getTimes(date, lat, lon);
+  return SunCalc.getTimes(combineLocalDateMinutes(date,720), lat, lon);
 }

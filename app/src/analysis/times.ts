@@ -12,8 +12,8 @@ export function daylightSunSamples(
   stepMinutes: number,
 ): SunVector[] {
   const times = sunTimes(date, lat, lon);
-  const rise = times.sunrise.getHours() * 60 + times.sunrise.getMinutes();
-  const set = times.sunset.getHours() * 60 + times.sunset.getMinutes();
+  const rise = koreaClockMinutes(times.sunrise);
+  const set = koreaClockMinutes(times.sunset);
   const out: SunVector[] = [];
   const start = Math.floor(rise / stepMinutes) * stepMinutes;
   for (let m = start; m <= set; m += stepMinutes) {
@@ -21,3 +21,4 @@ export function daylightSunSamples(
   }
   return out;
 }
+import { koreaClockMinutes } from '@/lib/time';

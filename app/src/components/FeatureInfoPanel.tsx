@@ -1,4 +1,8 @@
 import { useAppStore } from '@/store/appStore';
+import { useRiskStore } from '@/store/riskStore';
+import { riskDisplayFeature } from '@/data/riskData';
+import { combineLocalDateMinutes } from '@/solar/sunVector';
+import type { SelectedFeature } from '@/types/seoul';
 
 function value(v: unknown): string {
   if (v === null || v === undefined || v === '') return '—';
@@ -40,6 +44,7 @@ const SNOW_FIELDS: [string, string][] = [
 ];
 
 const KIND_LABEL: Record<string, string> = {
+  risk: '위험지점 · 제공 자료',
   building: '건물',
   tree: '수목',
   snowBase: '제설전진기지',
@@ -56,7 +61,10 @@ function fieldValue(key: string, v: unknown): string {
 }
 
 export function FeatureInfoPanel() {
-  const selected = useAppStore((s) => s.selectedFeature);
+  const stored = useAppStore((s) => s.selectedFeature);
+  const date=useAppStore(s=>s.date),minutes=useAppStore(s=>s.timeMinutes),bundle=useRiskStore(s=>s.bundle);
+  const riskPoint=stored?.kind==='risk' ? bundle?.features.find(f=>f.properties.id===stored.props.id) : null;
+  const selected:SelectedFeature|null=riskPoint && stored ? {...stored,props:riskDisplayFeature(riskPoint,combineLocalDateMinutes(date,minutes).getTime(),bundle?.purpose==='test').properties} : stored;
   const clear = useAppStore((s) => s.selectFeature);
 
   if (!selected) {
@@ -70,7 +78,9 @@ export function FeatureInfoPanel() {
   }
 
   const fields =
-    selected.kind === 'building'
+    selected.kind === 'risk'
+      ? [['name','지점명'],['statusLabel','구분'],['inputKindLabel','입력 자료'],['qualityLabel','제공 품질'],['reason','근거'],['source','출처'],['observedAt','관측시각'],['forecastIssuedAt','예보 발표'],['forecastValidAt','예보 대상'],['validFrom','유효 시작'],['validUntil','유효 종료'],['spatialContext','공간 대표성'],['modelVersion','모델·규칙'],['purpose','자료 용도']]
+      : selected.kind === 'building'
       ? BUILDING_FIELDS
       : selected.kind === 'snowBase'
         ? SNOW_FIELDS

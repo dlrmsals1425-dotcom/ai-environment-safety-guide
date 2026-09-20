@@ -44,6 +44,7 @@ export function TerrainShadowLayer({map}:{map:MapLibreMap}) {
     };
     setStatus('');
     if (!visible) {remove();return;}
+    if (!aoi) {remove();return;}
     const bbox=aoi ? bufferBboxMeters(aoi.bbox,spatialConfig.aoiBufferM) : null;
     const blocked=analysisBlockReason({aoiPresent:!!aoi,buildings:dataset,
       groundReady:!!bbox && groundCovers(ground,bbox)});
@@ -69,7 +70,7 @@ export function TerrainShadowLayer({map}:{map:MapLibreMap}) {
     const queue=new LatestTask<FrameRequest,PreviewFrameResult>(async request=>{
       await initialized;
       return api.frame(request.minutes,request.cellSize,request.fine);
-    },({image,spec},request)=>{
+    },({image,spec,isNight},request)=>{
       if (!active || !map.getStyle()) return;
       const coordinates=sunHoursImageCoordinates(gridWgsBounds(spec,origin));
       if (pendingUrl) URL.revokeObjectURL(pendingUrl);
@@ -86,7 +87,7 @@ export function TerrainShadowLayer({map}:{map:MapLibreMap}) {
         }
         if (displayedUrl) URL.revokeObjectURL(displayedUrl);
         displayedUrl=url;pendingUrl=null;
-        displayed=`${formatMinutes(request.minutes)} 바닥 그늘 · ${request.fine
+        displayed=isNight ? `${formatMinutes(request.minutes)} 야간 · 선택 지역의 직사일조 없음` : `${formatMinutes(request.minutes)} 바닥 그늘 · ${request.fine
           ? `기본 ${request.cellSize}m / 경계 ${spec.cellSize}m`
           : `${request.cellSize}m 조작 미리보기`}`;
         const pending=request.minutes!==requestedMinutes || !request.fine;

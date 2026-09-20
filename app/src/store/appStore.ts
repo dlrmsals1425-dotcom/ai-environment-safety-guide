@@ -12,7 +12,7 @@ import {
 } from '@/geo/aoi';
 import type { EnuOrigin } from '@/geo/enu';
 import { applyDatePreset, type DatePreset } from '@/lib/datePresets';
-import { clampTimeMinutes } from '@/lib/time';
+import { clampTimeMinutes, koreaCalendar } from '@/lib/time';
 import type { GridSpec } from '@/analysis/grid';
 import { terminateSunHoursPool } from '@/analysis/pool';
 import type { SunHoursRunMeta } from '@/analysis/pool';
@@ -46,10 +46,13 @@ export type { DatePreset, LayerId };
 export const SEOUL_PRESETS = seoulConfig.presets as SeoulPreset[];
 
 function startOfLocalDay(d: Date = new Date()): Date {
-  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  return koreaCalendar(d);
 }
 
 export interface AppState {
+  setCalendarDate: (value:string) => boolean;
+  selectionSizeM: number;
+  setSelectionSizeM: (size:number) => void;
   ground: GroundGrid | null;
   groundError: string | null;
   aoi: { bbox: BBox } | null;
@@ -161,6 +164,15 @@ export interface AppState {
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
+  setCalendarDate: value => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+    const [y,m,d]=value.split('-').map(Number),date=new Date(y,m-1,d);
+    if (date.getFullYear()!==y || date.getMonth()!==m-1 || date.getDate()!==d) return false;
+    get().invalidateSunHours();
+    set({date,layers:{...get().layers,realtimeShadow:true,sunHours:false}});return true;
+  },
+  selectionSizeM: DEFAULT_AOI_SIZE_M,
+  setSelectionSizeM: size => { if ([250,500,1000].includes(size)) set({selectionSizeM:size}); },
   ground: null,
   groundError: null,
   aoi: null,
@@ -328,7 +340,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     const { viewCenter, confirmAoi } = get();
     const bbox = squareBboxAround(
       { lat0: viewCenter.lat, lon0: viewCenter.lon },
-      DEFAULT_AOI_SIZE_M,
+        get().selectionSizeM,
     );
     return confirmAoi(bbox);
   },
@@ -393,7 +405,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       sunHoursProgress: 0,
       sunHoursRunning: false,
       sunHoursError: null,
-      layers: { ...get().layers, sunHours: false },
+      layers: { ...get().layers, sunHours: false, realtimeShadow: get().layers.realtimeShadow || get().layers.sunHours },
     });
     return next;
   },

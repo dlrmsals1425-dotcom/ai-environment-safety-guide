@@ -218,7 +218,7 @@ export function useSeoulData(): void {
 
     (async () => {
       const { index, meta } = await loadIndexBundle(DATA.buildingsIndexUrl);
-      if (!hasCompleteCoverage(index,needBbox)) throw new Error('팀 공유 샘플 범위 밖입니다. 서울숲·남산·여의도 프리셋을 선택하거나 서울 전체 데이터를 설치하세요.');
+      if (!hasCompleteCoverage(index,needBbox)) throw new Error('팀 공유 샘플 범위 밖입니다. 서울 전체 데이터를 설치하거나 자료가 있는 범위를 선택하세요.');
       if (isOutsideBounds(index.bounds, needBbox)) {
         return {
           state: {
@@ -281,7 +281,7 @@ export function useSeoulData(): void {
 
     (async () => {
       const { index, meta } = await loadIndexBundle(DATA.treesIndexUrl);
-      if (!hasCompleteCoverage(index,bbox)) throw new Error('팀 공유 샘플 범위 밖입니다. 서울숲·남산·여의도 프리셋을 선택하세요.');
+      if (!hasCompleteCoverage(index,bbox)) throw new Error('팀 공유 샘플 범위 밖입니다. 자료가 있는 범위를 선택하세요.');
       if (isOutsideBounds(index.bounds, bbox)) {
         return {
           ...emptyDatasetState<SeoulTreeFeature>(),

@@ -5,6 +5,7 @@ import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&ur
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { App } from './App';
 import './index.css';
+import './brand.css';
 
 setWorkerUrl(maplibreWorkerUrl);
 
