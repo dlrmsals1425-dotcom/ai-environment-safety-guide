@@ -49,6 +49,7 @@ vi.mock('maplibre-gl', () => ({
     }; }),
 }));
 
+vi.mock('@/components/RiskMapLayer', () => ({ RiskMapLayer: () => null }));
 vi.mock('@/components/BuildingLayer', () => ({ BuildingLayer: () => null }));
 vi.mock('@/components/TerrainShadowLayer', () => ({ TerrainShadowLayer: () => null }));
 vi.mock('@/components/SunHoursLayer', () => ({ SunHoursLayer: () => null }));

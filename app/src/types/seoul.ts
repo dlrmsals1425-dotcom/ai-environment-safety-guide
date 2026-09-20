@@ -178,7 +178,7 @@ export interface SeoulPreset {
 export type BasemapId = 'osm' | 'none';
 
 export interface SelectedFeature {
-  kind: 'building' | 'tree' | 'snowBase';
+  kind: 'building' | 'tree' | 'snowBase' | 'risk';
   props: Record<string, unknown>;
   lngLat: { lng: number; lat: number };
 }

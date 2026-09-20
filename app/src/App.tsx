@@ -16,7 +16,7 @@ export function App() {
     <div className="app">
       <SyntheticBanner />
       <Header />
-      {sample && <div className="data-scope-banner" role="status">팀 공유 시연 자료 · 서울숲 / 남산 / 여의도 주변만 제공 · 서울 전체 자료는 저장소 Releases에서 별도 설치</div>}
+      {sample && <div className="data-scope-banner" role="status">팀 공유 시연 자료 · 일부 지역만 제공 · 전체 자료는 저장소 Releases에서 별도 설치</div>}
       <div className="app-main">
         <LayerPanel />
         <MapView />

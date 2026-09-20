@@ -1,5 +1,5 @@
 import mapConfig from '../../config/map.json';
-import { formatMinutes } from '@/lib/time';
+import { formatMinutes, koreaClockMinutes } from '@/lib/time';
 import {
   combineLocalDateMinutes,
   sunTimes,
@@ -8,7 +8,7 @@ import {
 import { useAppStore } from '@/store/appStore';
 
 function hm(d: Date): string {
-  return formatMinutes(d.getHours() * 60 + d.getMinutes());
+  return formatMinutes(koreaClockMinutes(d));
 }
 
 export function SunStatus() {
@@ -21,7 +21,7 @@ export function SunStatus() {
   };
   const when = combineLocalDateMinutes(date, timeMinutes);
   const sun = sunVector(when, loc.lat0, loc.lon0);
-  const times = sunTimes(when, loc.lat0, loc.lon0);
+  const times = sunTimes(date, loc.lat0, loc.lon0);
   const night = sun.alt <= 0;
   const altDeg = ((sun.alt * 180) / Math.PI).toFixed(1);
   const az = sun.azimuthNorthDeg.toFixed(0);

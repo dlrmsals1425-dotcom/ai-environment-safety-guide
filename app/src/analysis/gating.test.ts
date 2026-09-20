@@ -63,7 +63,7 @@ describe('analysisBlockReason', () => {
   it('requires an AOI', () => {
     expect(
       analysisBlockReason({ groundReady: true, aoiPresent: false, buildings: ready() }),
-    ).toContain('관심구역');
+    ).toContain('분석할 지역');
   });
 
   it('does not silently analyse a dataset with unreadable building geometry', () => {

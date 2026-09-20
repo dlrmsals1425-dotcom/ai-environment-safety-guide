@@ -2,7 +2,6 @@ import * as maplibregl from 'maplibre-gl';
 import { useEffect, useRef, useState } from 'react';
 import mapConfig from '../../config/map.json';
 import {
-  DEFAULT_AOI_SIZE_M,
   MAX_AOI_SIZE_M,
   bboxSizeMeters,
   normalizeBbox,
@@ -12,6 +11,7 @@ import {
 import { TerrainShadowLayer } from '@/components/TerrainShadowLayer';
 import { BuildingLayer, type TreePicker } from '@/components/BuildingLayer';
 import { SunHoursLayer } from '@/components/SunHoursLayer';
+import { RiskMapLayer } from '@/components/RiskMapLayer';
 import { BASEMAP_LAYER_ID, createBasemapStyle } from '@/map/basemap';
 import {
   PICKABLE_LAYERS,
@@ -94,6 +94,7 @@ export function MapView() {
   const drawModeRef = useRef(false);
 
   const aoi = useAppStore((s) => s.aoi);
+  const selectionSizeM = useAppStore((s) => s.selectionSizeM);
   const aoiDrawMode = useAppStore((s) => s.aoiDrawMode);
   const aoiWarning = useAppStore((s) => s.aoiWarning);
   const confirmAoi = useAppStore((s) => s.confirmAoi);
@@ -177,6 +178,7 @@ export function MapView() {
       setPreviewBbox(normalizeBbox(lng0, lat0, e.lngLat.lng, e.lngLat.lat));
     };
 
+    let suppressSelectionClick = false;
     const finishDraw = (lng: number, lat: number, point: { x: number; y: number }) => {
       if (!drawingRef.current || !startLngLatRef.current || !startPointRef.current) return;
       drawingRef.current = false;
@@ -188,10 +190,11 @@ export function MapView() {
       const pixelDist = Math.hypot(point.x - startPt.x, point.y - startPt.y);
       const bbox =
         pixelDist < CLICK_PX
-          ? squareBboxAround({ lat0: lat, lon0: lng }, DEFAULT_AOI_SIZE_M)
+          ? squareBboxAround({ lat0: lat, lon0: lng }, useAppStore.getState().selectionSizeM)
           : normalizeBbox(lng0, lat0, lng, lat);
 
       setPreviewBbox(null);
+      suppressSelectionClick = true;
       confirmAoi(bbox);
     };
 
@@ -201,7 +204,11 @@ export function MapView() {
 
     // 건물·수목 상세 조회. 두 모드 모두에서 동작한다.
     const onClick = (e: maplibregl.MapMouseEvent) => {
-      if (drawModeRef.current) return;
+      if (suppressSelectionClick) {suppressSelectionClick=false;return;}
+      if (drawModeRef.current) {
+        confirmAoi(squareBboxAround({lat0:e.lngLat.lat,lon0:e.lngLat.lng},useAppStore.getState().selectionSizeM));
+        return;
+      }
       const layers = PICKABLE_LAYERS.filter((id) => map.getLayer(id));
       if (layers.length === 0) return;
       const hits = map.queryRenderedFeatures(
@@ -212,7 +219,7 @@ export function MapView() {
         { layers: layers as string[] },
       );
       const picked = pickFeature(hits as never);
-      const tree = picked?.kind !== 'snowBase' ? treePickerRef.current?.(e.point.x,e.point.y) : null;
+      const tree = picked?.kind !== 'snowBase' && picked?.kind !== 'risk' ? treePickerRef.current?.(e.point.x,e.point.y) : null;
       if (tree) {
         useAppStore.getState().selectFeature({kind:'tree',props:tree.properties as unknown as Record<string,unknown>,
           lngLat:{lng:tree.geometry.coordinates[0],lat:tree.geometry.coordinates[1]}});
@@ -313,11 +320,15 @@ export function MapView() {
       if (map.getTerrain?.()) map.setTerrain(null);
       return;
     }
-    if (!map.getSource(TERRAIN_SOURCE_ID)) {
-      map.addSource(TERRAIN_SOURCE_ID, terrainSourceSpec(terrainMeta) as never);
-    }
-    map.setTerrain(terrainSpec(terrainMeta) as never);
+    const apply=()=>{
+      if (!map.getStyle() || !map.isStyleLoaded()) return;
+      map.off('idle',apply);map.off('style.load',apply);
+      if (!map.getSource(TERRAIN_SOURCE_ID)) map.addSource(TERRAIN_SOURCE_ID,terrainSourceSpec(terrainMeta) as never);
+      map.setTerrain(terrainSpec(terrainMeta) as never);
+    };
+    map.on('idle',apply);map.on('style.load',apply);apply();
     return () => {
+      map.off('idle',apply);map.off('style.load',apply);
       if (map.getStyle() && map.getTerrain?.()) map.setTerrain(null);
     };
   }, [styleReady, terrainStatus, terrainMeta]);
@@ -368,19 +379,20 @@ export function MapView() {
   return (
     <div className="map-wrap">
       <div ref={containerRef} className="map-container" />
+      {!aoi && !aoiDrawMode && <><div className="map-center-target" aria-hidden="true">+</div><div className="map-prompt">지도를 원하는 곳으로 옮긴 뒤 ‘이 주변 분석하기’를 눌러주세요.</div></>}
       {mapObj && styleReady && <BuildingLayer map={mapObj} treePickerRef={treePickerRef} />}
       {mapObj && styleReady && <SunHoursLayer map={mapObj} />}
       {mapObj && styleReady && <TerrainShadowLayer map={mapObj} />}
+      {mapObj && styleReady && <RiskMapLayer map={mapObj} />}
       <div className="map-badge" data-testid="map-mode-badge">
-        추정 지면 + 건물 통합 일조 · 지형 과장 1배
+        서울 · 지형과 건물 그늘 보기
       </div>
       {basemap === 'osm' && (
         <div className="osm-badge">배경지도: OpenStreetMap 공개 타일</div>
       )}
       {aoiDrawMode && (
         <div className="map-hint">
-          드래그로 사각형을 지정하세요. 클릭만 하면 {DEFAULT_AOI_SIZE_M}m ×{' '}
-          {DEFAULT_AOI_SIZE_M}m. 최대 {MAX_AOI_SIZE_M}m.
+          원하는 곳을 한 번 누르면 {selectionSizeM}m 주변이 선택됩니다. 직접 드래그해 범위를 그릴 수도 있어요. 최대 {MAX_AOI_SIZE_M}m.
           {live && (
             <span>
               {' '}
