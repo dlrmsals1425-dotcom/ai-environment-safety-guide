@@ -1,9 +1,9 @@
 {
   "initialView": {
-    "lat": 37.5445,
-    "lon": 127.0374,
-    "zoom": 16,
-    "pitch": 50,
+    "lat": 37.565,
+    "lon": 126.978,
+    "zoom": 10.5,
+    "pitch": 0,
     "bearing": 0
   }
 }

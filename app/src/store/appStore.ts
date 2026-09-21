@@ -1,4 +1,6 @@
 import { create } from 'zustand';
+import { DISTRICTS, SEOUL_BOUNDS } from '@/data/municipal';
+import { useMunicipalStore } from '@/store/municipalStore';
 import type { GroundGrid } from '@/data/ground';
 import mapConfig from '../../config/map.json';
 import {
@@ -50,6 +52,12 @@ function startOfLocalDay(d: Date = new Date()): Date {
 }
 
 export interface AppState {
+  sceneRevision: number;
+  selectedDistrictCode: string | null;
+  districtBoundariesVisible: boolean;
+  districtView: {bbox:BBox;seq:number} | null;
+  selectDistrict: (code:string|null) => void;
+  setDistrictBoundariesVisible: (visible:boolean) => void;
   setCalendarDate: (value:string) => boolean;
   selectionSizeM: number;
   setSelectionSizeM: (size:number) => void;
@@ -164,6 +172,21 @@ export interface AppState {
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
+  sceneRevision: 0,
+  selectedDistrictCode: null,
+  districtBoundariesVisible: true,
+  districtView: null,
+  setDistrictBoundariesVisible: visible=>set({districtBoundariesVisible:visible}),
+  selectDistrict: code=>{
+    const district=DISTRICTS.find(d=>d.code===code);
+    if(code && !district) return;
+    const bbox=district?.bbox ?? SEOUL_BOUNDS;
+    const center=bboxCenter(bbox);
+    useMunicipalStore.getState().setSnowBoxQuery('');
+    get().clearAoi();
+    set({selectedDistrictCode:code,districtView:{bbox,seq:(get().districtView?.seq ?? 0)+1},
+      districtBoundariesVisible:true,viewCenter:{lat:center.lat0,lon:center.lon0},aoiDrawMode:false,selectedFeature:null});
+  },
   setCalendarDate: value => {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
     const [y,m,d]=value.split('-').map(Number),date=new Date(y,m-1,d);
@@ -241,7 +264,8 @@ export const useAppStore = create<AppState>((set, get) => ({
     const next = get().seoulBuildingSeq + 1;
     set({
       seoulBuildingSeq: next,
-      seoulBuildings: { ...get().seoulBuildings, status: 'loading', error: null },
+      seoulBuildings: { ...emptyDatasetState<SeoulBuildingFeature>(), status: 'loading' },
+      buildings: [], buildingsUnknownHeight: 0,
     });
     return next;
   },
@@ -273,7 +297,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     const next = get().seoulTreeSeq + 1;
     set({
       seoulTreeSeq: next,
-      seoulTrees: { ...get().seoulTrees, status: 'loading', error: null },
+      seoulTrees: { ...emptyDatasetState<SeoulTreeFeature>(), status: 'loading' },
     });
     return next;
   },
@@ -289,8 +313,11 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   selectFeature: (feature) => set({ selectedFeature: feature }),
 
-  flyTo: (lng, lat) =>
-    set({ viewAround: { lng, lat, seq: (get().viewAround?.seq ?? 0) + 1 } }),
+  flyTo: (lng, lat) => {
+    const bbox=get().aoi?.bbox;
+    if(bbox && (lng<bbox[0] || lng>bbox[2] || lat<bbox[1] || lat>bbox[3])) get().clearAoi();
+    set({ viewAround: { lng, lat, seq: (get().viewAround?.seq ?? 0) + 1 } });
+  },
 
   setTimeMinutes: (minutes) => set({
     timeMinutes: clampTimeMinutes(minutes),
@@ -329,7 +356,12 @@ export const useAppStore = create<AppState>((set, get) => ({
     get().invalidateSunHours();
     set({
       aoi: { bbox },
+      sceneRevision:get().sceneRevision+1,
       origin,
+      buildings: [], buildingsUnknownHeight: 0, selectedFeature:null,
+      seoulBuildings:{...emptyDatasetState<SeoulBuildingFeature>(),status:'loading'},
+      seoulTrees:{...emptyDatasetState<SeoulTreeFeature>(),status:'loading'},
+      seoulBuildingSeq:get().seoulBuildingSeq+1,seoulTreeSeq:get().seoulTreeSeq+1,
       aoiWarning: null,
       aoiDrawMode: false,
     });
@@ -347,7 +379,11 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   clearAoi: () => {
     get().invalidateSunHours();
-    set({ aoi: null, origin: null, aoiWarning: null });
+    set({ aoi: null, origin: null, aoiWarning: null, selectedFeature:null,
+      sceneRevision:get().sceneRevision+1,
+      buildings:[],buildingsUnknownHeight:0,
+      seoulBuildings:emptyDatasetState<SeoulBuildingFeature>(),seoulTrees:emptyDatasetState<SeoulTreeFeature>(),
+      seoulBuildingSeq:get().seoulBuildingSeq+1,seoulTreeSeq:get().seoulTreeSeq+1 });
   },
 
   beginBuildingLoad: () => {

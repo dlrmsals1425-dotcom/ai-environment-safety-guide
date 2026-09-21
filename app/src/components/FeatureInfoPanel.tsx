@@ -48,6 +48,7 @@ const KIND_LABEL: Record<string, string> = {
   building: '건물',
   tree: '수목',
   snowBase: '제설전진기지',
+  snowBox: '제설함',
 };
 
 function fieldValue(key: string, v: unknown): string {
@@ -80,6 +81,8 @@ export function FeatureInfoPanel() {
   const fields =
     selected.kind === 'risk'
       ? [['name','지점명'],['statusLabel','구분'],['inputKindLabel','입력 자료'],['qualityLabel','제공 품질'],['reason','근거'],['source','출처'],['observedAt','관측시각'],['forecastIssuedAt','예보 발표'],['forecastValidAt','예보 대상'],['validFrom','유효 시작'],['validUntil','유효 종료'],['spatialContext','공간 대표성'],['modelVersion','모델·규칙'],['purpose','자료 용도']]
+      : selected.kind === 'snowBox'
+      ? [['boxId','제설함 번호'],['districtName','위치 기준 자치구'],['agency','관리기관'],['address','위치 상세'],['coordinateStatus','좌표 상태']]
       : selected.kind === 'building'
       ? BUILDING_FIELDS
       : selected.kind === 'snowBase'
@@ -109,10 +112,10 @@ export function FeatureInfoPanel() {
       {selected.kind === 'building' && heightSource === 'unknown' && (
         <p className="muted">높이 미상이라 일조 계산에서 제외됩니다(추정하지 않음).</p>
       )}
-      {selected.kind === 'snowBase' && (
+      {(selected.kind === 'snowBase' || selected.kind === 'snowBox') && (
         <p className="muted">
           제설 시설의 위치 참고 자료입니다. 눈·결빙 위험 자료가 아니며 위험도 계산에
-          쓰지 않습니다.
+          쓰지 않습니다. 재고·운영 상태는 포함하지 않으며 현장 위치는 미검증입니다.
         </p>
       )}
       {selected.kind === 'tree' && (

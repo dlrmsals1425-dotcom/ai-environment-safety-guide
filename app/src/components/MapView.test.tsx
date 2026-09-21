@@ -31,7 +31,7 @@ const { mockMap } = vi.hoisted(() => {
     touchPitch: { enable: vi.fn() },
     boxZoom: { disable: vi.fn() },
     dragPan: { enable: vi.fn(), disable: vi.fn() },
-    flyTo: vi.fn(),
+    flyTo: vi.fn(),stop:vi.fn(),fitBounds:vi.fn(),
     project: vi.fn(() => ({ x: 0, y: 0 })),
     off: vi.fn(),
   };
@@ -49,7 +49,9 @@ vi.mock('maplibre-gl', () => ({
     }; }),
 }));
 
+vi.mock('@/components/MunicipalMapLayer', () => ({ MunicipalMapLayer: () => null, DISTRICT_FILL:'seoul-district-fill',BOX_LAYER:'seoul-snow-boxes' }));
 vi.mock('@/components/RiskMapLayer', () => ({ RiskMapLayer: () => null }));
+vi.mock('@/map/seoulLayers', async importOriginal => ({...await importOriginal<typeof import('@/map/seoulLayers')>(),syncSeoulLayers:vi.fn()}));
 vi.mock('@/components/BuildingLayer', () => ({ BuildingLayer: () => null }));
 vi.mock('@/components/TerrainShadowLayer', () => ({ TerrainShadowLayer: () => null }));
 vi.mock('@/components/SunHoursLayer', () => ({ SunHoursLayer: () => null }));
@@ -71,6 +73,7 @@ const terrainMeta: TerrainMeta = {
 
 function resetStore() {
   useAppStore.setState({
+    selectedDistrictCode:null,districtView:null,districtBoundariesVisible:true,
     aoi: null,
     origin: null,
     date: new Date(2026, 8, 16),
@@ -115,8 +118,8 @@ describe('MapView render smoke', () => {
     expect(maplibregl.Map).toHaveBeenCalledTimes(1);
     expect(maplibregl.Map).toHaveBeenCalledWith(
       expect.objectContaining({
-        center: [127.0374, 37.5445],
-        zoom: 16,
+        center: [126.978, 37.565],
+        zoom: 10.5,
         style: expect.objectContaining({
           version: 8,
           sources: expect.objectContaining({

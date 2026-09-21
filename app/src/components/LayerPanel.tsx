@@ -1,4 +1,5 @@
 import { filterSnowBases, snowBaseKinds } from '@/data/snowBases';
+import { DistrictPanel } from '@/components/DistrictPanel';
 import { useAppStore } from '@/store/appStore';
 import { LAYER_IDS, LAYER_LABELS } from '@/types/layers';
 import type { DatasetState } from '@/types/seoul';
@@ -85,7 +86,8 @@ export function LayerPanel() {
 
   return (
     <aside className="panel panel-left" aria-label="보기 설정">
-      <section className="welcome-card"><span className="eyebrow">함께 준비하는 겨울길</span><h2>눈 오기 전에,<br/>먼저 살펴봐요.</h2><img src="/brand/seonje-seol-mascots.png" alt="기록하고 길을 안내하는 선제설 캐릭터"/><ol className="guide-steps"><li><b>1</b><span>지도를 원하는 동네로 옮겨요.</span></li><li><b>2</b><span>위의 <strong>이 주변 분석하기</strong>를 눌러요.</span></li><li><b>3</b><span>시간별 그늘과 판단 근거를 살펴봐요.</span></li></ol></section>
+      <DistrictPanel />
+
       <h2 className="panel-title">지도에 표시할 정보</h2>
       <ul className="layer-list">
         {LAYER_IDS.map((id) => {

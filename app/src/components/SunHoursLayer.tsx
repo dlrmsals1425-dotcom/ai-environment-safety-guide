@@ -1,6 +1,6 @@
 /** 배치 위치(적용 시): cpted-sunmap/src/components/SunHoursLayer.tsx (전체 교체) */
 import type { Map as MapLibreMap } from 'maplibre-gl';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { gridWgsBounds } from '@/analysis/grid';
 import { sunHoursCanvas, sunHoursImageCoordinates } from '@/analysis/heatmap';
 import { useAppStore } from '@/store/appStore';
@@ -34,7 +34,7 @@ export function SunHoursLayer({ map }: { map: MapLibreMap }) {
   const origin = useAppStore((s) => s.origin);
   const visible = useAppStore((s) => s.layers.sunHours);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // 지도가 제거되면 더 이상 정리하지 않는다. (MapLibre 공개 이벤트)
     let mapRemoved = false;
     const onRemove = () => {
@@ -80,11 +80,12 @@ export function SunHoursLayer({ map }: { map: MapLibreMap }) {
       );
     };
 
-    if (map.loaded() || map.isStyleLoaded()) apply();
-    else map.once('load', apply);
+    const ready=()=>{if(map.isStyleLoaded()){map.off('idle',ready);apply();}};
+    map.on('style.load',ready);
+    if(map.isStyleLoaded()) apply();else map.on('idle',ready);
 
     return () => {
-      map.off('load', apply);
+      map.off('style.load',ready);map.off('idle',ready);
       map.off('remove', onRemove);
       if (mapRemoved) return;
       removeSunHours(map);

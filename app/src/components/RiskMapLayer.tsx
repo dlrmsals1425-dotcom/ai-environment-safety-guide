@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Map as MapLibreMap, GeoJSONSource } from 'maplibre-gl';
 import { useRiskStore } from '@/store/riskStore';
 import { useAppStore } from '@/store/appStore';
-import { riskDisplayFeature } from '@/data/riskData';
+import { useScopedRisk } from '@/data/useScopedRisk';
 import { combineLocalDateMinutes } from '@/solar/sunVector';
 import { formatMinutes } from '@/lib/time';
 
@@ -11,7 +11,7 @@ export function RiskMapLayer({map}:{map:MapLibreMap}) {
   const bundle=useRiskStore(s=>s.bundle),visible=useRiskStore(s=>s.visible);
   const date=useAppStore(s=>s.date),minutes=useAppStore(s=>s.timeMinutes);
   const [renderError,setRenderError]=useState('');
-  const features=useMemo(()=>bundle?.features.map(f=>riskDisplayFeature(f,combineLocalDateMinutes(date,minutes).getTime(),bundle.purpose==='test')) ?? [],[bundle,date,minutes]);
+  const {features,scopeLabel}=useScopedRisk();
   useEffect(()=>{
     const apply=()=>{
     if (!map.getStyle()) return;
@@ -44,5 +44,5 @@ export function RiskMapLayer({map}:{map:MapLibreMap}) {
   const difference=combineLocalDateMinutes(date,minutes).getTime()-Date.now();
   const context=difference< -600_000 ? '과거 시각 · 현재 상태 아님' : difference>600_000 ? '미래 시각 · 예보 근거 확인' : '선택시각 자료 · 자동 갱신 아님';
   if (renderError && bundle && visible) return <div className="risk-map-legend notice-warning" role="alert">{renderError}</div>;
-  return bundle && visible ? <div className="risk-map-legend"><strong>{bundle.purpose==='test' ? '가상 테스트 · 실제 위험 아님' : '제공된 위험지점'}</strong><span>{date.getFullYear()}-{String(date.getMonth()+1).padStart(2,'0')}-{String(date.getDate()).padStart(2,'0')} {formatMinutes(minutes)} 한국시간</span><span>{context}</span>{bundle.purpose==='test' ? <span><i className="dot" style={{background:'#8b70c5'}}/>보라색 테두리: 테스트 지점</span> : <span><i className="dot danger"/>결빙 확인 <i className="dot caution"/>우려·추정 <i className="dot unknown"/>판단 보류</span>}<span>원은 위치 표시이며 영향 범위가 아닙니다.<br/>회색·자료 없음은 안전을 뜻하지 않습니다.</span></div> : null;
+  return bundle && visible ? <div className="risk-map-legend"><strong>{bundle.purpose==='test' ? '가상 테스트 · 실제 위험 아님' : `${scopeLabel} · 제공된 위험지점`}</strong><span>{date.getFullYear()}-{String(date.getMonth()+1).padStart(2,'0')}-{String(date.getDate()).padStart(2,'0')} {formatMinutes(minutes)} 한국시간</span><span>{context}</span>{bundle.purpose==='test' ? <span><i className="dot" style={{background:'#8b70c5'}}/>보라색 테두리: 테스트 지점</span> : <span><i className="dot danger"/>결빙 확인 <i className="dot caution"/>우려·추정 <i className="dot unknown"/>판단 보류</span>}<span>원은 위치 표시이며 영향 범위가 아닙니다.<br/>회색·자료 없음은 안전을 뜻하지 않습니다.</span></div> : null;
 }

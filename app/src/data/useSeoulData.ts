@@ -135,11 +135,12 @@ export function useSeoulData(): void {
     return () => { active = false; };
   }, []);
   const aoi = useAppStore((s) => s.aoi);
+  const sceneRevision=useAppStore(s=>s.sceneRevision);
   const viewCenter = useAppStore((s) => s.viewCenter);
   // AOI가 있으면 화면 이동만으로 다시 읽지 않는다(팬할 때마다 일조 결과가 사라지는 문제).
   const loadKey = aoi
-    ? `aoi:${aoi.bbox.join(',')}`
-    : `view:${viewCenter.lat.toFixed(4)},${viewCenter.lon.toFixed(4)}`;
+    ? `${sceneRevision}:aoi:${aoi.bbox.join(',')}`
+    : `${sceneRevision}:view:${viewCenter.lat.toFixed(4)},${viewCenter.lon.toFixed(4)}`;
 
   // 지형 meta는 한 번만 읽는다.
   useEffect(() => {
@@ -199,6 +200,7 @@ export function useSeoulData(): void {
       };
     })()
       .then(({ state, meta }) => {
+        if (ac.signal.aborted) return;
         useAppStore.getState().setSnowBases(state, meta);
       })
       .catch((err: unknown) => {
@@ -260,6 +262,7 @@ export function useSeoulData(): void {
       };
     })()
       .then(({ state, unknown, buildings }) => {
+        if (ac.signal.aborted) return;
         useAppStore.getState().applySeoulBuildings(seq, state, unknown, buildings);
       })
       .catch((err: unknown) => {
@@ -313,6 +316,7 @@ export function useSeoulData(): void {
       };
     })()
       .then((state) => {
+        if (ac.signal.aborted) return;
         useAppStore.getState().applySeoulTrees(seq, state);
       })
       .catch((err: unknown) => {

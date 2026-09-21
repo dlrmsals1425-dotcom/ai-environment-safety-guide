@@ -1,20 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
-import { parseRiskBundle, riskDisplayFeature } from '@/data/riskData';
+import { useScopedRisk } from '@/data/useScopedRisk';
+import { parseRiskBundle } from '@/data/riskData';
 import { useRiskStore } from '@/store/riskStore';
 import { useAppStore } from '@/store/appStore';
-import { combineLocalDateMinutes } from '@/solar/sunVector';
 import { squareBboxAround } from '@/geo/aoi';
 
 export function RiskPanel() {
   const bundle=useRiskStore(s=>s.bundle),setBundle=useRiskStore(s=>s.setBundle);
   const visible=useRiskStore(s=>s.visible),setVisible=useRiskStore(s=>s.setVisible);
-  const date=useAppStore(s=>s.date),minutes=useAppStore(s=>s.timeMinutes);
   const flyTo=useAppStore(s=>s.flyTo),selectFeature=useAppStore(s=>s.selectFeature);
   const [error,setError]=useState('');
   const input=useRef<HTMLInputElement>(null);
   const loadSequence=useRef(0);
   useEffect(()=>()=>{loadSequence.current+=1;},[]);
-  const features=bundle?.features.map(f=>riskDisplayFeature(f,combineLocalDateMinutes(date,minutes).getTime(),bundle.purpose==='test')) ?? [];
+  const {features,scopeLabel,scopeUnavailable}=useScopedRisk();
   async function load(file:File) {
     const sequence=++loadSequence.current;
     try {
@@ -31,11 +30,12 @@ export function RiskPanel() {
     <p className="caption">기상청 자동 수집은 아직 연결되지 않았습니다.</p>
     {!bundle ? <div className="empty-risk"><span className="empty-risk-icon">❄</span><h3>위험을 판단할 자료가 필요해요</h3><p>그늘만으로 결빙을 확정할 수 없어요. 기상과 노면 자료가 연결되면 지점별 근거를 함께 살펴볼 수 있습니다.</p><span className="neutral-note">자료 없음은 ‘안전’이 아닙니다.</span></div> : <>
       {bundle.purpose==='test' && <p className="notice-warning">가상 테스트 자료입니다. 실제 위험 지점이 아닙니다.</p>}
-      <div className="risk-counts"><div><b>{features.filter(f=>f.properties.level==='observed_ice').length}</b><span>결빙 확인 자료</span></div><div><b>{features.filter(f=>f.properties.level==='caution').length}</b><span>우려·추정</span></div><div><b>{features.filter(f=>f.properties.level==='insufficient').length}</b><span>판단 보류</span></div></div>
-      <p className="caption">출처: {bundle.source}<br/>생성: {bundle.generatedAt} · 파일 전체 {features.length}지점</p>
+      <div className="risk-counts"><div><b>{scopeUnavailable ? '—' : features.filter(f=>f.properties.level==='observed_ice').length}</b><span>결빙 확인 자료</span></div><div><b>{scopeUnavailable ? '—' : features.filter(f=>f.properties.level==='caution').length}</b><span>우려·추정</span></div><div><b>{scopeUnavailable ? '—' : features.filter(f=>f.properties.level==='insufficient').length}</b><span>판단 보류</span></div></div>
+      <p className="caption">출처: {bundle.source}<br/>생성: {bundle.generatedAt} · {scopeLabel} {scopeUnavailable ? '집계 대기' : `${features.length}지점`} / 파일 전체 {bundle.features.length}지점</p>
       <label className="layer-item"><input type="checkbox" checked={visible} onChange={e=>setVisible(e.target.checked)}/>지도에 위험지점 표시</label>
       <ul className="risk-list">{features.slice(0,30).map(f=><li key={f.properties.id}><button onClick={()=>{const [lng,lat]=f.geometry.coordinates;const state=useAppStore.getState();state.confirmAoi(squareBboxAround({lon0:lng,lat0:lat},state.selectionSizeM));flyTo(lng,lat);selectFeature({kind:'risk',props:f.properties,lngLat:{lng,lat}});}}><span className={`risk-tag ${f.properties.level}`}>{f.properties.statusLabel}</span><small className="caption">{f.properties.inputKindLabel} · {f.properties.qualityLabel}</small><strong>{f.properties.name}</strong><span>{f.properties.reason}</span></button></li>)}</ul>
-      {features.length===0 && <p className="panel-hint">자료에 지점이 없습니다. 안전 판정을 뜻하지 않습니다.</p>}
+      {scopeUnavailable && <p className="notice-warning">구 경계를 확인할 수 없어 구별 위험지점 표시를 보류합니다.</p>}
+      {!scopeUnavailable && features.length===0 && <p className="panel-hint">자료에 지점이 없습니다. 안전 판정을 뜻하지 않습니다.</p>}
       {features.length>30 && <p className="caption">목록에는 처음 30개, 지도에는 전체 지점을 표시합니다.</p>}
       <button className="btn btn-ghost" onClick={()=>{loadSequence.current+=1;setBundle(null);selectFeature(null);setError('');}}>불러온 자료 지우기</button>
     </>}
