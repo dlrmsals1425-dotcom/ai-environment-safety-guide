@@ -9,7 +9,7 @@ import {
   type BBox,
 } from '@/geo/aoi';
 import { TerrainShadowLayer } from '@/components/TerrainShadowLayer';
-import { BuildingLayer, type TreePicker } from '@/components/BuildingLayer';
+import { BuildingLayer, type TreePicker, type SnowBoxPicker } from '@/components/BuildingLayer';
 import { SunHoursLayer } from '@/components/SunHoursLayer';
 import { RiskMapLayer } from '@/components/RiskMapLayer';
 import { MunicipalMapLayer, DISTRICT_FILL, BOX_LAYER } from '@/components/MunicipalMapLayer';
@@ -89,6 +89,7 @@ function addAoiLayers(map: maplibregl.Map) {
 export function MapView() {
   const containerRef = useRef<HTMLDivElement>(null);
   const treePickerRef = useRef<TreePicker | null>(null);
+  const snowBoxPickerRef=useRef<SnowBoxPicker|null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const drawingRef = useRef(false);
   const startLngLatRef = useRef<[number, number] | null>(null);
@@ -223,6 +224,10 @@ export function MapView() {
         { layers: layers as string[] },
       );
       const picked = pickFeature(hits as never);
+      const box=picked?.kind!=='risk' ? snowBoxPickerRef.current?.(e.point.x,e.point.y) : null;
+      if(box) {
+        useAppStore.getState().selectFeature({kind:'snowBox',props:box.properties,lngLat:{lng:box.geometry.coordinates[0],lat:box.geometry.coordinates[1]}});return;
+      }
       const tree = picked?.kind !== 'snowBase' && picked?.kind !== 'snowBox' && picked?.kind !== 'risk' ? treePickerRef.current?.(e.point.x,e.point.y) : null;
       if (tree) {
         useAppStore.getState().selectFeature({kind:'tree',props:tree.properties as unknown as Record<string,unknown>,
@@ -364,7 +369,7 @@ export function MapView() {
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !viewAround) return;
-    map.flyTo({ center: [viewAround.lng, viewAround.lat], zoom: 16, duration: 800 });
+    map.flyTo({ center: [viewAround.lng, viewAround.lat], zoom: viewAround.zoom ?? 16, pitch:viewAround.pitch ?? map.getPitch(), duration: 800 });
   }, [viewAround]);
 
   useEffect(()=>{
@@ -393,9 +398,9 @@ export function MapView() {
   return (
     <div className="map-wrap">
       <div ref={containerRef} className="map-container" />
-      {!aoi && !aoiDrawMode && <><div className="map-center-target" aria-hidden="true">+</div><div className="map-prompt">{districtCode ? `${DISTRICTS.find(d=>d.code===districtCode)?.name} 담당구역 · 정밀 그늘은 지점을 확대해 ‘이 주변 분석하기’` : '담당 자치구를 선택하거나 지도를 옮겨 ‘이 주변 분석하기’를 누르세요.'}</div></>}
+      {!aoi && !aoiDrawMode && <>{!selectedFeature && <div className="map-center-target" aria-hidden="true">+</div>}<div className="map-prompt">{districtCode ? `${DISTRICTS.find(d=>d.code===districtCode)?.name} 담당구역 · 정밀 그늘은 지점을 확대해 ‘이 주변 분석하기’` : '담당 자치구를 선택하거나 지도를 옮겨 ‘이 주변 분석하기’를 누르세요.'}</div></>}
       {mapObj && styleReady && <MunicipalMapLayer map={mapObj} />}
-      {mapObj && styleReady && <BuildingLayer map={mapObj} treePickerRef={treePickerRef} />}
+      {mapObj && styleReady && <BuildingLayer map={mapObj} treePickerRef={treePickerRef} snowBoxPickerRef={snowBoxPickerRef} />}
       {mapObj && styleReady && <SunHoursLayer map={mapObj} />}
       {mapObj && styleReady && <TerrainShadowLayer map={mapObj} />}
       {mapObj && styleReady && <RiskMapLayer map={mapObj} />}

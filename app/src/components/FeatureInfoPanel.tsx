@@ -118,6 +118,7 @@ export function FeatureInfoPanel() {
           쓰지 않습니다. 재고·운영 상태는 포함하지 않으며 현장 위치는 미검증입니다.
         </p>
       )}
+      {selected.kind === 'snowBox' && <p className="muted">3D 함은 확대된 위치 기호입니다. 실제 제품의 크기·외형·설치 방향을 뜻하지 않으며 그늘 계산에는 사용하지 않습니다.</p>}
       {selected.kind === 'tree' && (
         <p className="muted">
           2013년 공개본의 자료값입니다. 수고·수관폭이 있으면 그 크기의 간략 3D 모형,

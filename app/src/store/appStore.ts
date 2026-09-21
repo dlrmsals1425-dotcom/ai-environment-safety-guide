@@ -52,6 +52,7 @@ function startOfLocalDay(d: Date = new Date()): Date {
 }
 
 export interface AppState {
+  shadowBusy:boolean;
   sceneRevision: number;
   selectedDistrictCode: string | null;
   districtBoundariesVisible: boolean;
@@ -94,7 +95,7 @@ export interface AppState {
   cctvLiveCandidates: GeocodeCandidate[];
   cctvLiveChosen: CctvLiveChosen | null;
   cctvLiveRequestId: number;
-  viewAround: { lng: number; lat: number; seq: number } | null;
+  viewAround: { lng: number; lat: number; seq: number;zoom?:number;pitch?:number } | null;
   /** 서울 프로토타입 상태 */
   basemap: BasemapId;
   presetId: string | null;
@@ -132,7 +133,7 @@ export interface AppState {
   ) => void;
   selectFeature: (feature: SelectedFeature | null) => void;
   /** AOI를 바꾸지 않고 화면만 이동한다(목록에서 이동할 때 사용). */
-  flyTo: (lng: number, lat: number) => void;
+  flyTo: (lng: number, lat: number, detail?:{zoom:number;pitch:number}) => void;
   setTimeMinutes: (minutes: number) => void;
   setDatePreset: (preset: DatePreset) => void;
   setLayerVisible: (id: LayerId, visible: boolean) => void;
@@ -172,6 +173,7 @@ export interface AppState {
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
+  shadowBusy:false,
   sceneRevision: 0,
   selectedDistrictCode: null,
   districtBoundariesVisible: true,
@@ -313,10 +315,10 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   selectFeature: (feature) => set({ selectedFeature: feature }),
 
-  flyTo: (lng, lat) => {
+  flyTo: (lng, lat, detail) => {
     const bbox=get().aoi?.bbox;
     if(bbox && (lng<bbox[0] || lng>bbox[2] || lat<bbox[1] || lat>bbox[3])) get().clearAoi();
-    set({ viewAround: { lng, lat, seq: (get().viewAround?.seq ?? 0) + 1 } });
+    set({ viewAround: { lng, lat, ...detail, seq: (get().viewAround?.seq ?? 0) + 1 } });
   },
 
   setTimeMinutes: (minutes) => set({

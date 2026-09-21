@@ -4,11 +4,13 @@ import { fetchJson } from '@/data/seoulData';
 import { parseMunicipalCollection, type DistrictFeature, type SnowBoxFeature, type SnowBoxMeta } from '@/data/municipal';
 
 interface MunicipalState {
+  snowBoxModelIds:string[];
   districts:DistrictFeature[];snowBoxes:SnowBoxFeature[];snowBoxMeta:SnowBoxMeta|null;
   districtError:string|null;snowBoxError:string|null;districtReady:boolean;snowBoxReady:boolean;
   snowBoxQuery:string;setSnowBoxQuery:(query:string)=>void;
 }
 export const useMunicipalStore=create<MunicipalState>(set=>({districts:[],snowBoxes:[],snowBoxMeta:null,
+  snowBoxModelIds:[],
   districtError:null,snowBoxError:null,districtReady:false,snowBoxReady:false,snowBoxQuery:'',
   setSnowBoxQuery:query=>set({snowBoxQuery:query})}));
 

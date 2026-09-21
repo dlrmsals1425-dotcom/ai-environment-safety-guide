@@ -31,6 +31,7 @@ const { mockMap } = vi.hoisted(() => {
     touchPitch: { enable: vi.fn() },
     boxZoom: { disable: vi.fn() },
     dragPan: { enable: vi.fn(), disable: vi.fn() },
+    getPitch:()=>0,
     flyTo: vi.fn(),stop:vi.fn(),fitBounds:vi.fn(),
     project: vi.fn(() => ({ x: 0, y: 0 })),
     off: vi.fn(),
