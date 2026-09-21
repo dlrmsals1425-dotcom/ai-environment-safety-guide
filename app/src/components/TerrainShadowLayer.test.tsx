@@ -49,4 +49,25 @@ describe('continuous ground shadow preview',()=>{
     expect(terminate).toHaveBeenCalledTimes(1);
     expect(map.removeLayer).toHaveBeenCalledTimes(1);
   });
+  it('removes the displayed scene immediately when changing the area',async()=>{
+    const map=mapStub();
+    await act(async()=>{render(<TerrainShadowLayer map={map as never}/>);});
+    expect(map.sources.size).toBe(1);
+    await act(async()=>{useAppStore.getState().confirmAoi(squareBboxAround({lat0:37.57,lon0:127.05},500));});
+    expect(map.sources.size).toBe(0);
+    expect(terminate).toHaveBeenCalledTimes(1);
+    expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:frame');
+    expect(screen.getByRole('status')).toHaveTextContent('대기');
+  });
+  it('does not restore a late worker image after selecting another district',async()=>{
+    let finish!:(value:unknown)=>void;
+    api.frame.mockImplementation(()=>new Promise(resolve=>{finish=resolve;}));
+    const map=mapStub();
+    await act(async()=>{render(<TerrainShadowLayer map={map as never}/>);});
+    await act(async()=>{useAppStore.getState().selectDistrict('11650');});
+    await act(async()=>{finish({image:new Blob(),spec:{originX:0,originY:0,cellSize:4,nx:1,ny:1}});});
+    expect(map.sources.size).toBe(0);
+    expect(map.addSource).not.toHaveBeenCalled();
+    expect(terminate).toHaveBeenCalledTimes(1);
+  });
 });

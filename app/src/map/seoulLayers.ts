@@ -15,6 +15,7 @@ export const SNOW_CIRCLE_LAYER = 'seoul-snow-base-circle';
 
 export const PICKABLE_LAYERS = [
   'seonje-risk-points',
+  'seoul-snow-boxes',
   SNOW_CIRCLE_LAYER,
   TREE_CIRCLE_LAYER,
   BUILDING_FILL_LAYER,
@@ -160,7 +161,7 @@ export function syncSeoulLayers(
 }
 
 export interface PickedFeature {
-  kind: 'building' | 'tree' | 'snowBase' | 'risk';
+  kind: 'building' | 'tree' | 'snowBase' | 'snowBox' | 'risk';
   props: Record<string, unknown>;
 }
 
@@ -170,6 +171,8 @@ export function pickFeature(
 ): PickedFeature | null {
   const risk = features.find(f=>f.layer?.id==='seonje-risk-points');
   if (risk) return {kind:'risk',props:risk.properties ?? {}};
+  const box=features.find(f=>f.layer?.id==='seoul-snow-boxes');
+  if(box) return {kind:'snowBox',props:box.properties ?? {}};
   const snow = features.find((f) => f.layer?.id === SNOW_CIRCLE_LAYER);
   if (snow) return { kind: 'snowBase', props: snow.properties ?? {} };
   const tree = features.find((f) => f.layer?.id === TREE_CIRCLE_LAYER);

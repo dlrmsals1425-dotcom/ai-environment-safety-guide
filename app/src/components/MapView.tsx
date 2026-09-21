@@ -12,6 +12,8 @@ import { TerrainShadowLayer } from '@/components/TerrainShadowLayer';
 import { BuildingLayer, type TreePicker } from '@/components/BuildingLayer';
 import { SunHoursLayer } from '@/components/SunHoursLayer';
 import { RiskMapLayer } from '@/components/RiskMapLayer';
+import { MunicipalMapLayer, DISTRICT_FILL, BOX_LAYER } from '@/components/MunicipalMapLayer';
+import { DISTRICTS } from '@/data/municipal';
 import { BASEMAP_LAYER_ID, createBasemapStyle } from '@/map/basemap';
 import {
   PICKABLE_LAYERS,
@@ -113,6 +115,8 @@ export function MapView() {
   const snowKind = useAppStore((s) => s.snowBaseKind);
   const snowQuery = useAppStore((s) => s.snowBaseQuery);
   const selectedFeature = useAppStore((s) => s.selectedFeature);
+  const districtView=useAppStore(s=>s.districtView);
+  const districtCode=useAppStore(s=>s.selectedDistrictCode);
 
   const [previewBbox, setPreviewBbox] = useState<BBox | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
@@ -209,7 +213,7 @@ export function MapView() {
         confirmAoi(squareBboxAround({lat0:e.lngLat.lat,lon0:e.lngLat.lng},useAppStore.getState().selectionSizeM));
         return;
       }
-      const layers = PICKABLE_LAYERS.filter((id) => map.getLayer(id));
+      const layers = [...PICKABLE_LAYERS,DISTRICT_FILL].filter((id) => map.getLayer(id));
       if (layers.length === 0) return;
       const hits = map.queryRenderedFeatures(
         [
@@ -219,15 +223,23 @@ export function MapView() {
         { layers: layers as string[] },
       );
       const picked = pickFeature(hits as never);
-      const tree = picked?.kind !== 'snowBase' && picked?.kind !== 'risk' ? treePickerRef.current?.(e.point.x,e.point.y) : null;
+      const tree = picked?.kind !== 'snowBase' && picked?.kind !== 'snowBox' && picked?.kind !== 'risk' ? treePickerRef.current?.(e.point.x,e.point.y) : null;
       if (tree) {
         useAppStore.getState().selectFeature({kind:'tree',props:tree.properties as unknown as Record<string,unknown>,
           lngLat:{lng:tree.geometry.coordinates[0],lat:tree.geometry.coordinates[1]}});
         return;
       }
+      if(!picked && !useAppStore.getState().aoi) {
+        const district=hits.find(f=>f.layer.id===DISTRICT_FILL)?.properties?.code;
+        if(typeof district==='string' && district!==useAppStore.getState().selectedDistrictCode) {
+          useAppStore.getState().selectDistrict(district);return;
+        }
+      }
+      const boxHit=picked?.kind==='snowBox' ? hits.find(f=>f.layer.id===BOX_LAYER) : undefined;
+      const selectedLocation=boxHit?.geometry.type==='Point' ? {lng:boxHit.geometry.coordinates[0],lat:boxHit.geometry.coordinates[1]} : {lng:e.lngLat.lng,lat:e.lngLat.lat};
       useAppStore.getState().selectFeature(
         picked
-          ? { kind: picked.kind, props: picked.props, lngLat: { lng: e.lngLat.lng, lat: e.lngLat.lat } }
+          ? { kind: picked.kind, props: picked.props, lngLat: selectedLocation }
           : null,
       );
     };
@@ -275,19 +287,11 @@ export function MapView() {
     const map = mapRef.current;
     if (!map || !styleReady) return;
     // HMR 등으로 스타일이 다시 로딩 중이면 소스 추가가 실패한다. 준비되면 다시 맞춘다.
+    let active=true;
     const sync = () => {
-      try {
-        applySync();
-      } catch (err) {
-        console.warn('[서울환경안내] 레이어 동기화 지연', err);
-        map.once('idle', () => {
-          try {
-            applySync();
-          } catch {
-            /* 다음 변경에서 다시 시도 */
-          }
-        });
-      }
+      if(!active || !map.getStyle()) return;
+      if(!map.isStyleLoaded()) {map.off('idle',sync);map.once('idle',sync);return;}
+      applySync();
     };
     const applySync = () =>
       syncSeoulLayers(map, {
@@ -299,6 +303,8 @@ export function MapView() {
       snowBasesVisible: showSnowBases,
     });
     sync();
+    map.on('style.load',sync);
+    return ()=>{active=false;map.off('idle',sync);map.off('style.load',sync);};
   }, [
     styleReady,
     buildingFeatures,
@@ -361,6 +367,14 @@ export function MapView() {
     map.flyTo({ center: [viewAround.lng, viewAround.lat], zoom: 16, duration: 800 });
   }, [viewAround]);
 
+  useEffect(()=>{
+    const map=mapRef.current;
+    if(!map || !districtView) return;
+    map.stop();
+    const [w,s,e,n]=districtView.bbox;
+    map.fitBounds([[w,s],[e,n]],{padding:45,duration:700,pitch:0,bearing:0,maxZoom:13});
+  },[districtView]);
+
   // A single selection pin stays legible over detailed terrain and map symbols.
   useEffect(() => {
     if (!mapObj || !showSnowBases || selectedFeature?.kind !== 'snowBase') return;
@@ -379,7 +393,8 @@ export function MapView() {
   return (
     <div className="map-wrap">
       <div ref={containerRef} className="map-container" />
-      {!aoi && !aoiDrawMode && <><div className="map-center-target" aria-hidden="true">+</div><div className="map-prompt">지도를 원하는 곳으로 옮긴 뒤 ‘이 주변 분석하기’를 눌러주세요.</div></>}
+      {!aoi && !aoiDrawMode && <><div className="map-center-target" aria-hidden="true">+</div><div className="map-prompt">{districtCode ? `${DISTRICTS.find(d=>d.code===districtCode)?.name} 담당구역 · 정밀 그늘은 지점을 확대해 ‘이 주변 분석하기’` : '담당 자치구를 선택하거나 지도를 옮겨 ‘이 주변 분석하기’를 누르세요.'}</div></>}
+      {mapObj && styleReady && <MunicipalMapLayer map={mapObj} />}
       {mapObj && styleReady && <BuildingLayer map={mapObj} treePickerRef={treePickerRef} />}
       {mapObj && styleReady && <SunHoursLayer map={mapObj} />}
       {mapObj && styleReady && <TerrainShadowLayer map={mapObj} />}

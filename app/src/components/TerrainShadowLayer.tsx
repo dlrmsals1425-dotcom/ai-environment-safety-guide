@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { wrap } from 'comlink';
 import type { Map as MapLibreMap, ImageSource } from 'maplibre-gl';
 import type { PreviewApi, PreviewFrameResult } from '@/analysis/previewWorker';
@@ -31,7 +31,7 @@ export function TerrainShadowLayer({map}:{map:MapLibreMap}) {
   const [status,setStatus]=useState('');
 
   // Time changes never dispose the worker, scene input, or map layer.
-  useEffect(()=>{
+  useLayoutEffect(()=>{
     let active=true;
     let settleTimer:number | undefined;
     let pendingApply:(()=>void) | null=null;

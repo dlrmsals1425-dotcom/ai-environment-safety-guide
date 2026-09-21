@@ -7,10 +7,12 @@ import { SunStatus } from '@/components/SunStatus';
 import { SyntheticBanner } from '@/components/SyntheticBanner';
 import { TimeSlider } from '@/components/TimeSlider';
 import { useSeoulData } from '@/data/useSeoulData';
+import { useMunicipalData } from '@/store/municipalStore';
 import { useAppStore } from '@/store/appStore';
 
 export function App() {
   useSeoulData();
+  useMunicipalData();
   const sample=useAppStore(s=>s.seoulBuildings.meta?.source?.includes('[팀 공유 샘플]'));
   return (
     <div className="app">
