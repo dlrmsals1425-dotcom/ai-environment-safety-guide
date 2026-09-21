@@ -43,6 +43,7 @@ export function TerrainShadowLayer({map}:{map:MapLibreMap}) {
       if (map.getSource(ID)) map.removeSource(ID);
     };
     setStatus('');
+    useAppStore.setState({shadowBusy:false});
     if (!visible) {remove();return;}
     if (!aoi) {remove();return;}
     const bbox=aoi ? bufferBboxMeters(aoi.bbox,spatialConfig.aoiBufferM) : null;
@@ -92,15 +93,18 @@ export function TerrainShadowLayer({map}:{map:MapLibreMap}) {
           : `${request.cellSize}m 조작 미리보기`}`;
         const pending=request.minutes!==requestedMinutes || !request.fine;
         setStatus(`${displayed}${pending ? ` · ${formatMinutes(requestedMinutes)} 보정 중…` : ' · 주변 300m 포함'}`);
+        if(!pending) useAppStore.setState({shadowBusy:false});
       };
       applyWhenReady();
     },error=>{
+      if(active) useAppStore.setState({shadowBusy:false});
       if (active) setStatus(`${displayed ? `${displayed} 유지 · ` : ''}그늘 계산 오류: ${error instanceof Error ? error.message : String(error)}`);
     });
     const control:Controller={
       request(next){
         if (previousRequest===next) return;
         previousRequest=next;requestedMinutes=next;
+        useAppStore.setState({shadowBusy:true});
         window.clearTimeout(settleTimer);
         setStatus(displayed ? `${displayed} 유지 · ${formatMinutes(next)} 갱신 중…` : `${formatMinutes(next)} 바닥 그늘 계산 중…`);
         queue.submit({minutes:next,cellSize:previewCell,fine:false});
@@ -112,6 +116,7 @@ export function TerrainShadowLayer({map}:{map:MapLibreMap}) {
     control.request(requestedMinutes);
     return ()=>{
       control.stop();controller.current=null;pendingApply=null;
+      useAppStore.setState({shadowBusy:false});
       map.off('idle',applyWhenReady);remove();
       if (displayedUrl) URL.revokeObjectURL(displayedUrl);
       if (pendingUrl) URL.revokeObjectURL(pendingUrl);

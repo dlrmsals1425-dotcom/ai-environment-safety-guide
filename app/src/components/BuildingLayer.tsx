@@ -2,7 +2,11 @@ import { MapLibreOverlay } from '@deck.gl/maplibre';
 import { PolygonLayer } from '@deck.gl/layers';
 import type { Layer } from '@deck.gl/core';
 import type { Map as MapLibreMap } from 'maplibre-gl';
-import { useEffect, useMemo, useRef, type MutableRefObject } from 'react';
+import { useEffect, useMemo, useRef, useState, type MutableRefObject } from 'react';
+import { useMunicipalStore } from '@/store/municipalStore';
+import { filterSnowBoxes, type SnowBoxFeature } from '@/data/municipal';
+import { makeSnowBoxLayers, SNOW_BOX_DECK_IDS } from '@/components/snowBoxDeckLayers';
+import { prepareSnowBoxVisuals, snowBoxSymbolScale, type SnowBoxView, type SnowBoxVisual } from '@/map/snowBoxModels';
 import { makeTreeLayers, TREE_DECK_IDS } from '@/components/treeDeckLayers';
 import { prepareTreeVisuals, type TreeVisual } from '@/map/treeModels';
 import type { SeoulTreeFeature } from '@/types/seoul';
@@ -41,7 +45,7 @@ export function makeBuildingLayer(
     getLineColor: (d) =>
       d.heightSource === 'estimated' ? [232, 184, 74, 200] : [40, 48, 56, 160],
     lineWidthMinPixels: 1,
-    pickable: false,
+    pickable: true,
     ...shadowCast(castShadow),
     material: {
       ambient: 0.4,
@@ -59,13 +63,14 @@ export function buildDeckLayers(input: {
   shadowOn: boolean;
   trees?: TreeVisual[];
   treesVisible?: boolean;
+  snowBoxes?:SnowBoxVisual[];snowBoxesVisible?:boolean;snowBoxScale?:number;
 }) {
   const buildings = makeBuildingLayer(
     input.buildings,
     input.buildingsVisible,
     false,
   );
-  const layers: Layer[] = [buildings, ...makeTreeLayers(input.trees ?? [], input.treesVisible ?? false)];
+  const layers: Layer[] = [buildings, ...makeTreeLayers(input.trees ?? [], input.treesVisible ?? false), ...makeSnowBoxLayers(input.snowBoxes ?? [],input.snowBoxesVisible ?? false,input.snowBoxScale ?? 1)];
   return layers;
 }
 
@@ -79,9 +84,15 @@ function currentSun() {
   return sunVector(when, loc.lat0, loc.lon0);
 }
 
-function layersFromStore() {
+function readBoxView(map:MapLibreMap):SnowBoxView {
+  const b=map.getBounds();
+  return {zoom:map.getZoom(),latitude:map.getCenter().lat,bounds:[b.getWest(),b.getSouth(),b.getEast(),b.getNorth()]};
+}
+function layersFromStore(map:MapLibreMap) {
   const s = useAppStore.getState();
+  const municipal=useMunicipalStore.getState(),view=readBoxView(map);
   return buildDeckLayers({
+    snowBoxes:prepareSnowBoxVisuals(filterSnowBoxes(municipal.snowBoxes,s.selectedDistrictCode,municipal.snowBoxQuery),s.ground,view),snowBoxesVisible:s.layers.snowBoxes,snowBoxScale:snowBoxSymbolScale(view),
     buildings: s.buildings,
     buildingsVisible: s.layers.buildings,
     origin: s.origin,
@@ -92,7 +103,8 @@ function layersFromStore() {
 }
 
 export type TreePicker = (x:number,y:number) => SeoulTreeFeature | null;
-export function BuildingLayer({ map, treePickerRef }: { map: MapLibreMap; treePickerRef?: MutableRefObject<TreePicker | null> }) {
+export type SnowBoxPicker=(x:number,y:number)=>SnowBoxFeature|null;
+export function BuildingLayer({ map, treePickerRef, snowBoxPickerRef }: { map: MapLibreMap; treePickerRef?: MutableRefObject<TreePicker | null>;snowBoxPickerRef?:MutableRefObject<SnowBoxPicker|null> }) {
   const treeFeatures = useAppStore((s) => s.seoulTrees.features);
   const ground = useAppStore((s) => s.ground);
   const treesVisible = useAppStore((s) => s.layers.trees);
@@ -104,6 +116,17 @@ export function BuildingLayer({ map, treePickerRef }: { map: MapLibreMap; treePi
   const timeMinutes = useAppStore((s) => s.timeMinutes);
   const origin = useAppStore((s) => s.origin);
   const overlayRef = useRef<MapLibreOverlay | null>(null);
+  const boxFeatures=useMunicipalStore(s=>s.snowBoxes),boxQuery=useMunicipalStore(s=>s.snowBoxQuery);
+  const districtCode=useAppStore(s=>s.selectedDistrictCode),boxesVisible=useAppStore(s=>s.layers.snowBoxes);
+  const [boxView,setBoxView]=useState(()=>readBoxView(map));
+  const filteredBoxes=useMemo(()=>filterSnowBoxes(boxFeatures,districtCode,boxQuery),[boxFeatures,districtCode,boxQuery]);
+  const boxes=useMemo(()=>prepareSnowBoxVisuals(filteredBoxes,ground,boxView),[filteredBoxes,ground,boxView]);
+  const boxScale=snowBoxSymbolScale(boxView);
+  useEffect(()=>{
+    const update=()=>setBoxView(readBoxView(map));
+    map.on('moveend',update);map.on('resize',update);
+    return ()=>{map.off('moveend',update);map.off('resize',update);};
+  },[map]);
 
   useEffect(() => {
     let overlay: MapLibreOverlay | null = null;
@@ -111,11 +134,17 @@ export function BuildingLayer({ map, treePickerRef }: { map: MapLibreMap; treePi
       if (overlay) return;
       overlay = new MapLibreOverlay({
         interleaved: true,
-        layers: layersFromStore(),
+        layers: layersFromStore(map),
         effects: [createSunLightingEffect(currentSun(), false)],
       });
       overlayRef.current = overlay;
       map.addControl(overlay);
+      if(snowBoxPickerRef) snowBoxPickerRef.current=(x,y)=>{
+        if(!useMunicipalStore.getState().snowBoxModelIds.length) return null;
+        const hit=overlay?.pickObject({x,y,radius:5,layerIds:['seoul-buildings-3d',...SNOW_BOX_DECK_IDS]});
+        if(!hit?.layer || !SNOW_BOX_DECK_IDS.includes(hit.layer.id)) return null;
+        return (hit?.object as SnowBoxVisual | undefined)?.feature ?? null;
+      };
       if (treePickerRef) treePickerRef.current = (x,y) => {
         const hit = overlay?.pickObject({x,y,radius:4,layerIds:TREE_DECK_IDS});
         return (hit?.object as TreeVisual | undefined)?.feature ?? null;
@@ -132,9 +161,11 @@ export function BuildingLayer({ map, treePickerRef }: { map: MapLibreMap; treePi
         overlay.finalize?.();
       }
       overlayRef.current = null;
+      useMunicipalStore.setState({snowBoxModelIds:[]});
       if (treePickerRef) treePickerRef.current = null;
+      if (snowBoxPickerRef) snowBoxPickerRef.current = null;
     };
-  }, [map, treePickerRef]);
+  }, [map, treePickerRef, snowBoxPickerRef]);
 
   useEffect(() => {
     overlayRef.current?.setProps({
@@ -145,9 +176,11 @@ export function BuildingLayer({ map, treePickerRef }: { map: MapLibreMap; treePi
         shadowOn,
         trees,
         treesVisible,
+        snowBoxes:boxes,snowBoxesVisible:boxesVisible,snowBoxScale:boxScale,
       }),
     });
-  }, [buildings, visible, origin, shadowOn, trees, treesVisible]);
+    useMunicipalStore.setState({snowBoxModelIds:overlayRef.current && boxesVisible ? boxes.map(b=>b.feature.properties.id):[]});
+  }, [buildings, visible, origin, shadowOn, trees, treesVisible,boxes,boxesVisible,boxScale]);
 
   useEffect(() => {
     overlayRef.current?.setProps({

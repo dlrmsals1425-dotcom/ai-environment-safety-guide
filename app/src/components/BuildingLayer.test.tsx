@@ -71,6 +71,8 @@ function lastOverlay() {
 
 function mapStub() {
   return {
+    getBounds:()=>({getWest:()=>126.9,getSouth:()=>37.5,getEast:()=>127.1,getNorth:()=>37.6}),
+    getZoom:()=>12,getCenter:()=>({lat:37.55}),on:vi.fn(),
     addControl: vi.fn(),
     removeControl: vi.fn(),
     loaded: () => true,

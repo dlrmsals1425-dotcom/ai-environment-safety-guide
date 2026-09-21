@@ -11,6 +11,7 @@ const DISTRICT_SOURCE='seoul-districts';
 
 export function MunicipalMapLayer({map}:{map:MapLibreMap}) {
   const districts=useMunicipalStore(s=>s.districts),boxes=useMunicipalStore(s=>s.snowBoxes),query=useMunicipalStore(s=>s.snowBoxQuery);
+  const modelIds=useMunicipalStore(s=>s.snowBoxModelIds);
   const code=useAppStore(s=>s.selectedDistrictCode),boundaries=useAppStore(s=>s.districtBoundariesVisible),showBoxes=useAppStore(s=>s.layers.snowBoxes);
   const shown=useMemo(()=>filterSnowBoxes(boxes,code,query),[boxes,code,query]);
   const [error,setError]=useState('');
@@ -33,13 +34,14 @@ export function MunicipalMapLayer({map}:{map:MapLibreMap}) {
           'circle-radius':['interpolate',['linear'],['zoom'],10,2,14,4,17,6],
           'circle-color':'#dc741b','circle-stroke-color':'#fff5e7','circle-stroke-width':1.2,'circle-opacity':0.9}},map.getLayer('seonje-risk-points') ? 'seonje-risk-points' : undefined);
         (map.getSource(BOX_LAYER) as GeoJSONSource).setData({type:'FeatureCollection',features:shown});
+        map.setFilter(BOX_LAYER,modelIds.length ? ['!', ['in',['get','id'],['literal',modelIds]]] : null);
         map.setLayoutProperty(BOX_LAYER,'visibility',showBoxes ? 'visible':'none');
         setError('');
       } catch(e) {setError(`구 경계·제설함 표시 오류: ${e instanceof Error ? e.message : String(e)}`);}
     };
     map.on('style.load',apply);apply();
     return ()=>{active=false;map.off('idle',apply);map.off('style.load',apply);};
-  },[map,districts,shown,code,boundaries,showBoxes]);
+  },[map,districts,shown,code,boundaries,showBoxes,modelIds]);
   useEffect(()=>{
     if(!boundaries || !districts.length) return;
     const labels=DISTRICTS.map(d=>{
