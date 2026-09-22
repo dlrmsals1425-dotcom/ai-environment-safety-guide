@@ -51,6 +51,7 @@ vi.mock('maplibre-gl', () => ({
 }));
 
 vi.mock('@/components/MunicipalMapLayer', () => ({ MunicipalMapLayer: () => null, DISTRICT_FILL:'seoul-district-fill',BOX_LAYER:'seoul-snow-boxes' }));
+vi.mock('@/components/DemoMapLayer',()=>({DemoMapLayer:()=>null,DEMO_FILL:'synthetic-decision-fill'}));
 vi.mock('@/components/RiskMapLayer', () => ({ RiskMapLayer: () => null }));
 vi.mock('@/map/seoulLayers', async importOriginal => ({...await importOriginal<typeof import('@/map/seoulLayers')>(),syncSeoulLayers:vi.fn()}));
 vi.mock('@/components/BuildingLayer', () => ({ BuildingLayer: () => null }));

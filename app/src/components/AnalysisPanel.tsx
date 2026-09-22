@@ -1,4 +1,6 @@
-﻿import { useState } from 'react';
+﻿import { DemoDecisionPanel } from '@/components/DemoDecisionPanel';
+import { useDemoStore } from '@/store/demoStore';
+import { useState } from 'react';
 import { groundCovers } from '@/data/ground';
 import analysisConfig from '../../config/analysis.json';
 import { analysisWorkerCount, sunHoursPoolSize } from '@/analysis/pool';
@@ -29,11 +31,12 @@ function SunAnalysisCard() {
 }
 
 export function AnalysisPanel() {
+  const demo=useDemoStore(s=>s.enabled);
   const [tab,setTab]=useState<'risk'|'sun'|'weather'>('risk');
   const selected=useAppStore(s=>s.selectedFeature);
   return <aside className="panel panel-right" aria-label="분석">
-    <div className="results-tabs" role="tablist" aria-label="분석 정보">{([['risk','위험 살펴보기'],['sun','그늘·일조'],['weather','기상 연계']] as const).map(([id,label])=><button key={id} id={`tab-${id}`} role="tab" aria-controls="result-tab-content" aria-selected={tab===id} onClick={()=>setTab(id)}>{label}</button>)}</div>
-    <div id="result-tab-content" role="tabpanel" aria-labelledby={`tab-${tab}`}>{tab==='risk' ? <RiskPanel/> : tab==='sun' ? <SunAnalysisCard/> : <WeatherPanel/>}</div>
+    <div className="results-tabs" role="tablist" aria-label="분석 정보">{([['risk',demo?'제설 의사결정':'위험 살펴보기'],['sun','그늘·일조'],['weather','기상 연계']] as const).map(([id,label])=><button key={id} id={`tab-${id}`} role="tab" aria-controls="result-tab-content" aria-selected={tab===id} onClick={()=>setTab(id)}>{label}</button>)}</div>
+    <div id="result-tab-content" role="tabpanel" aria-labelledby={`tab-${tab}`}>{tab==='risk' ? (demo?<DemoDecisionPanel/>:<RiskPanel/>) : tab==='sun' ? <SunAnalysisCard/> : <WeatherPanel/>}</div>
     <details className="detail-section selected-detail" open={selected!==null}><summary>{selected?.kind==='risk' ? '선택한 위험지점의 근거' : '선택한 지도 정보'}</summary><FeatureInfoPanel/></details>
   </aside>;
 }
