@@ -11,6 +11,8 @@ import {
 import { TerrainShadowLayer } from '@/components/TerrainShadowLayer';
 import { BuildingLayer, type TreePicker, type SnowBoxPicker } from '@/components/BuildingLayer';
 import { SunHoursLayer } from '@/components/SunHoursLayer';
+import { DemoMapLayer, DEMO_FILL } from '@/components/DemoMapLayer';
+import { useDemoStore } from '@/store/demoStore';
 import { RiskMapLayer } from '@/components/RiskMapLayer';
 import { MunicipalMapLayer, DISTRICT_FILL, BOX_LAYER } from '@/components/MunicipalMapLayer';
 import { DISTRICTS } from '@/data/municipal';
@@ -96,6 +98,7 @@ export function MapView() {
   const startPointRef = useRef<{ x: number; y: number } | null>(null);
   const drawModeRef = useRef(false);
 
+  const demoEnabled=useDemoStore(s=>s.enabled);
   const aoi = useAppStore((s) => s.aoi);
   const selectionSizeM = useAppStore((s) => s.selectionSizeM);
   const aoiDrawMode = useAppStore((s) => s.aoiDrawMode);
@@ -213,6 +216,12 @@ export function MapView() {
       if (drawModeRef.current) {
         confirmAoi(squareBboxAround({lat0:e.lngLat.lat,lon0:e.lngLat.lng},useAppStore.getState().selectionSizeM));
         return;
+      }
+      const facilityLayers=['seoul-snow-boxes','seoul-snow-base-circle'].filter(id=>map.getLayer(id));
+      const facilityHit=facilityLayers.length>0 && map.queryRenderedFeatures(e.point,{layers:facilityLayers}).some(f=>facilityLayers.includes(f.layer.id));
+      if(useDemoStore.getState().enabled && !facilityHit && map.getLayer(DEMO_FILL)) {
+        const hit=map.queryRenderedFeatures(e.point,{layers:[DEMO_FILL]}).find(f=>f.layer.id===DEMO_FILL && String(f.properties?.id).startsWith('demo-'));
+        if(hit?.properties?.id){useDemoStore.getState().select(String(hit.properties.id));useAppStore.getState().selectFeature(null);return;}
       }
       const layers = [...PICKABLE_LAYERS,DISTRICT_FILL].filter((id) => map.getLayer(id));
       if (layers.length === 0) return;
@@ -398,12 +407,13 @@ export function MapView() {
   return (
     <div className="map-wrap">
       <div ref={containerRef} className="map-container" />
-      {!aoi && !aoiDrawMode && <>{!selectedFeature && <div className="map-center-target" aria-hidden="true">+</div>}<div className="map-prompt">{districtCode ? `${DISTRICTS.find(d=>d.code===districtCode)?.name} 담당구역 · 정밀 그늘은 지점을 확대해 ‘이 주변 분석하기’` : '담당 자치구를 선택하거나 지도를 옮겨 ‘이 주변 분석하기’를 누르세요.'}</div></>}
+      {!demoEnabled && !aoi && !aoiDrawMode && <>{!selectedFeature && <div className="map-center-target" aria-hidden="true">+</div>}<div className="map-prompt">{districtCode ? `${DISTRICTS.find(d=>d.code===districtCode)?.name} 담당구역 · 정밀 그늘은 지점을 확대해 ‘이 주변 분석하기’` : '담당 자치구를 선택하거나 지도를 옮겨 ‘이 주변 분석하기’를 누르세요.'}</div></>}
       {mapObj && styleReady && <MunicipalMapLayer map={mapObj} />}
       {mapObj && styleReady && <BuildingLayer map={mapObj} treePickerRef={treePickerRef} snowBoxPickerRef={snowBoxPickerRef} />}
       {mapObj && styleReady && <SunHoursLayer map={mapObj} />}
       {mapObj && styleReady && <TerrainShadowLayer map={mapObj} />}
-      {mapObj && styleReady && <RiskMapLayer map={mapObj} />}
+      {mapObj && styleReady && !demoEnabled && <RiskMapLayer map={mapObj} />}
+      {mapObj && styleReady && <DemoMapLayer map={mapObj} />}
       <div className="map-badge" data-testid="map-mode-badge">
         서울 · 지형과 건물 그늘 보기
       </div>

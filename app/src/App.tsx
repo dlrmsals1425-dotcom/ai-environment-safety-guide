@@ -1,4 +1,5 @@
 import { AnalysisPanel } from '@/components/AnalysisPanel';
+import { DemoBanner } from '@/components/DemoBanner';
 import { Header } from '@/components/Header';
 import { LayerPanel } from '@/components/LayerPanel';
 import { MapView } from '@/components/MapView';
@@ -18,6 +19,7 @@ export function App() {
     <div className="app">
       <SyntheticBanner />
       <Header />
+      <DemoBanner />
       {sample && <div className="data-scope-banner" role="status">팀 공유 시연 자료 · 일부 지역만 제공 · 전체 자료는 저장소 Releases에서 별도 설치</div>}
       <div className="app-main">
         <LayerPanel />
