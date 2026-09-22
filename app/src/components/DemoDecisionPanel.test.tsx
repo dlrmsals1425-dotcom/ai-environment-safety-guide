@@ -4,6 +4,7 @@ import { act,cleanup,fireEvent,render,screen } from '@testing-library/react';
 import { afterEach,beforeEach,describe,expect,it } from 'vitest';
 import { DemoDecisionPanel } from './DemoDecisionPanel';
 import { DemoBanner } from './DemoBanner';
+import { AnalysisPanel } from './AnalysisPanel';
 import { useDemoStore } from '@/store/demoStore';
 import { useAppStore } from '@/store/appStore';
 import { useMunicipalStore } from '@/store/municipalStore';
@@ -12,13 +13,29 @@ const districts=JSON.parse(readFileSync(resolve('public/overlays/districts.geojs
 describe('synthetic decision UI',()=>{
   beforeEach(()=>{
     useDemoStore.getState().reset();useDemoStore.setState({enabled:true});
-    useAppStore.setState({selectedDistrictCode:'11440',date:new Date(2026,11,21),timeMinutes:720,aoi:null,origin:null});
+    useAppStore.setState({selectedDistrictCode:'11440',date:new Date(2026,11,21),timeMinutes:720,aoi:null,origin:null,viewAround:null});
     useMunicipalStore.setState({districts,districtReady:true,districtError:null});
   });
   afterEach(cleanup);
+  it('shows three places first, supports all six, and returns to the district summary when switching districts',()=>{
+    render(<AnalysisPanel/>);
+    expect(screen.getAllByRole('button',{name:/판단 근거$/})).toHaveLength(3);
+    fireEvent.click(screen.getByRole('button',{name:'가상 장소 6곳 모두 보기'}));
+    expect(screen.getAllByRole('button',{name:/판단 근거$/})).toHaveLength(6);
+    fireEvent.click(screen.getByRole('tab',{name:'기상 연계'}));
+    act(()=>{useAppStore.getState().selectDistrict('11650');});
+    expect(screen.getByRole('tab',{name:'구 판단 요약'})).toHaveAttribute('aria-selected','true');
+    expect(screen.getByRole('heading',{name:'서초구 제설 판단 (가상)'})).toBeInTheDocument();
+    expect(screen.getAllByRole('button',{name:/판단 근거$/})).toHaveLength(3);
+    act(()=>{useDemoStore.getState().select('demo-11650-0');});
+    fireEvent.click(screen.getByRole('tab',{name:'기상 연계'}));
+    act(()=>{useDemoStore.getState().select('demo-11650-0');});
+    expect(screen.getByRole('tab',{name:'구 판단 요약'})).toHaveAttribute('aria-selected','true');
+  });
   it('changes weather and solar time together with clearly fictional presets',()=>{
     render(<DemoDecisionPanel/>);
-    expect(screen.getByText(/실제 위험·예보·출동 지시가 아닙니다/)).toBeInTheDocument();
+    expect(screen.getByText(/실제 구 전체 위험·도로 분석/)).toBeInTheDocument();
+    fireEvent.click(screen.getByText('가상 날씨 바꾸기'));
     fireEvent.click(screen.getByRole('button',{name:'☀ 맑은 오후'}));
     expect(useDemoStore.getState().weather).toMatchObject({temperature:3,cloud:10,snow:2});
     expect(useAppStore.getState().timeMinutes).toBe(780);
@@ -29,8 +46,11 @@ describe('synthetic decision UI',()=>{
     render(<DemoDecisionPanel/>);
     fireEvent.click(screen.getByRole('button',{name:'마포구 가상 구역 A 판단 근거'}));
     expect(screen.getByLabelText('가상 구역 판단 근거')).toHaveTextContent('잔설 가정');
+    expect(useAppStore.getState().viewAround).toBeNull();
+    fireEvent.click(screen.getByText('제설 상태·점수 확인'));
     fireEvent.change(screen.getByLabelText('선택 구역 제설 상태'),{target:{value:'done'}});
     expect(useDemoStore.getState().treatments).toEqual({'demo-11440-0':'done'});
+    fireEvent.click(screen.getByText('가상 작업계획 (0/3곳)'));
     fireEvent.change(screen.getByLabelText('가상 작업 한도'),{target:{value:'2'}});
     fireEvent.click(screen.getByRole('button',{name:'상위 2곳으로 계획 교체'}));
     expect(useDemoStore.getState().plan.length).toBeLessThanOrEqual(2);
