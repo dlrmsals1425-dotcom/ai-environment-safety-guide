@@ -1,4 +1,5 @@
 import { filterSnowBases, snowBaseKinds } from '@/data/snowBases';
+import { useDemoStore } from '@/store/demoStore';
 import { DistrictPanel } from '@/components/DistrictPanel';
 import { useAppStore } from '@/store/appStore';
 import { LAYER_IDS, LAYER_LABELS } from '@/types/layers';
@@ -36,6 +37,7 @@ function datasetLine(
 }
 
 export function LayerPanel() {
+  const demo=useDemoStore(s=>s.enabled);
   const layers = useAppStore((s) => s.layers);
   const setLayerVisible = useAppStore((s) => s.setLayerVisible);
   const basemap = useAppStore((s) => s.basemap);
@@ -86,7 +88,7 @@ export function LayerPanel() {
 
   return (
     <aside className="panel panel-left" aria-label="보기 설정">
-      <DistrictPanel />
+      <DistrictPanel selectionControls={!demo} />
 
       <h2 className="panel-title">지도에 표시할 정보</h2>
       <ul className="layer-list">

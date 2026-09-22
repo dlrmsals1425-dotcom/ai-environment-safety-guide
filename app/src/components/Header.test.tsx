@@ -1,9 +1,11 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { useDemoStore } from '@/store/demoStore';
 import { Header } from '@/components/Header';
 import { useAppStore } from '@/store/appStore';
 
 function resetStore() {
+  useDemoStore.setState({enabled:false});
   useAppStore.setState({
     selectionSizeM: 500,
     aoi: null,
@@ -19,6 +21,15 @@ function resetStore() {
 describe('Header AOI smoke', () => {
   beforeEach(resetStore);
   afterEach(cleanup);
+
+  it('selects a district without exposing small-area tools in the default demo view',()=>{
+    useDemoStore.setState({enabled:true});render(<Header/>);
+    fireEvent.change(screen.getByLabelText('담당 자치구'),{target:{value:'11650'}});
+    expect(useAppStore.getState().selectedDistrictCode).toBe('11650');
+    expect(useAppStore.getState().aoi).toBeNull();
+    expect(screen.getByRole('button',{name:'서초구 전체 보기'})).toBeInTheDocument();
+    expect(screen.getByRole('button',{name:'이 주변 분석하기'}).closest('details')).not.toHaveAttribute('open');
+  });
 
   it('500m 사각형 writes a 500m AOI at viewCenter', () => {
     render(<Header />);

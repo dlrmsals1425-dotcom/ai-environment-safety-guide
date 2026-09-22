@@ -1,6 +1,6 @@
 ﻿import { DemoDecisionPanel } from '@/components/DemoDecisionPanel';
 import { useDemoStore } from '@/store/demoStore';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { groundCovers } from '@/data/ground';
 import analysisConfig from '../../config/analysis.json';
 import { analysisWorkerCount, sunHoursPoolSize } from '@/analysis/pool';
@@ -18,8 +18,8 @@ function SunAnalysisCard() {
   const aoi=useAppStore(s=>s.aoi),ground=useAppStore(s=>s.ground),groundError=useAppStore(s=>s.groundError);
   const buildings=useAppStore(s=>s.seoulBuildings),unknown=useAppStore(s=>s.buildingsUnknownHeight);
   const blocked=analysisBlockReason({aoiPresent:!!aoi,groundReady:!!aoi && groundCovers(ground,aoi.bbox),buildings});
-  return <section><span className="eyebrow">SHADE & SUNLIGHT</span><h2>햇빛이 닿는 시간을 살펴봐요</h2><p className="intro-copy">하루 중 햇빛을 받을 수 있는 시간을 계산합니다. 아래 시간 막대를 움직이면 해당 시각의 그늘로 돌아갑니다.</p>
-    <div className="sun-action-card"><span className="sun-card-icon">☀</span><h3>선택한 지역의 하루 일조</h3><p>{aoi ? '선택한 범위를 기준으로 계산합니다.' : '위의 ‘이 주변 분석하기’로 지역부터 선택하세요.'}</p><button type="button" className="btn btn-primary" onClick={()=>void run()} disabled={running || !!blocked}>{running ? '계산하고 있어요…' : '일조시간 계산'}</button>{running && <button className="btn btn-ghost" onClick={cancel}>취소</button>}</div>
+  return <section><span className="eyebrow">SHADE & SUNLIGHT</span><h2>추정 그늘을 참고해 살펴봐요</h2><p className="intro-copy">지형·건물 모델에서 직사광선이 닿을 가능 시간을 추정합니다. 실측 일사량이 아니며 현장 정확도는 미검증입니다. 아래 시간 막대를 움직이면 해당 시각의 그늘로 돌아갑니다.</p>
+    <div className="sun-action-card"><span className="sun-card-icon">☀</span><h3>선택 지점의 일조 가능시간 추정</h3><p>{aoi ? '선택한 범위를 기준으로 계산합니다.' : '상단 ‘지점별 그늘 도구’에서 범위를 선택하세요.'}</p><button type="button" className="btn btn-primary" onClick={()=>void run()} disabled={running || !!blocked}>{running ? '계산하고 있어요…' : '일조시간 계산'}</button>{running && <button className="btn btn-ghost" onClick={cancel}>취소</button>}</div>
     {blocked && <p className="panel-hint" data-testid="analysis-blocked">{blocked}</p>}
     {running && <div className="progress-wrap" data-testid="sunhours-progress"><progress max={1} value={progress}/><span>{Math.round(progress*100)}%</span></div>}
     {(error || groundError) && <p className="notice-warning" role="alert">{error || groundError}</p>}
@@ -34,8 +34,14 @@ export function AnalysisPanel() {
   const demo=useDemoStore(s=>s.enabled);
   const [tab,setTab]=useState<'risk'|'sun'|'weather'>('risk');
   const selected=useAppStore(s=>s.selectedFeature);
-  return <aside className="panel panel-right" aria-label="분석">
-    <div className="results-tabs" role="tablist" aria-label="분석 정보">{([['risk',demo?'제설 의사결정':'위험 살펴보기'],['sun','그늘·일조'],['weather','기상 연계']] as const).map(([id,label])=><button key={id} id={`tab-${id}`} role="tab" aria-controls="result-tab-content" aria-selected={tab===id} onClick={()=>setTab(id)}>{label}</button>)}</div>
+  const districtView=useAppStore(s=>s.districtView);
+  const panelRef=useRef<HTMLElement>(null);
+  const selectedDemo=useDemoStore(s=>s.selectedId);
+  const selectedDemoSeq=useDemoStore(s=>s.selectionSeq);
+  useEffect(()=>{if(demo && selectedDemo)setTab('risk');},[demo,selectedDemo,selectedDemoSeq]);
+  useEffect(()=>{setTab('risk');if(panelRef.current)panelRef.current.scrollTop=0;},[districtView,demo]);
+  return <aside ref={panelRef} className="panel panel-right" aria-label="분석">
+    <div className="results-tabs" role="tablist" aria-label="분석 정보">{([['risk',demo?'구 판단 요약':'위험 살펴보기'],['sun','추정 그늘'],['weather','기상 연계']] as const).map(([id,label])=><button key={id} id={`tab-${id}`} role="tab" aria-controls="result-tab-content" aria-selected={tab===id} onClick={()=>setTab(id)}>{label}</button>)}</div>
     <div id="result-tab-content" role="tabpanel" aria-labelledby={`tab-${tab}`}>{tab==='risk' ? (demo?<DemoDecisionPanel/>:<RiskPanel/>) : tab==='sun' ? <SunAnalysisCard/> : <WeatherPanel/>}</div>
     <details className="detail-section selected-detail" open={selected!==null}><summary>{selected?.kind==='risk' ? '선택한 위험지점의 근거' : '선택한 지도 정보'}</summary><FeatureInfoPanel/></details>
   </aside>;

@@ -3,7 +3,7 @@ import { DISTRICTS, filterSnowBoxes } from '@/data/municipal';
 import { useAppStore } from '@/store/appStore';
 import { useMunicipalStore } from '@/store/municipalStore';
 
-export function DistrictPanel() {
+export function DistrictPanel({selectionControls=true}:{selectionControls?:boolean}) {
   const code=useAppStore(s=>s.selectedDistrictCode),select=useAppStore(s=>s.selectDistrict);
   const visible=useAppStore(s=>s.districtBoundariesVisible),toggle=useAppStore(s=>s.setDistrictBoundariesVisible);
   const boxes=useMunicipalStore(s=>s.snowBoxes),ready=useMunicipalStore(s=>s.snowBoxReady),error=useMunicipalStore(s=>s.snowBoxError);
@@ -14,8 +14,8 @@ export function DistrictPanel() {
   const district=DISTRICTS.find(d=>d.code===code);
   return <section className="district-panel" aria-label="담당 구역">
     <div className="district-title"><span className="eyebrow">담당 구역</span><label className="switch-control"><span>구 경계 표시</span><input type="checkbox" role="switch" aria-label="구 경계 표시" checked={visible} onChange={e=>toggle(e.target.checked)}/><i aria-hidden="true"/></label></div>
-    <label className="district-select"><span className="sr-only">담당 자치구</span><select aria-label="담당 자치구" value={code ?? ''} onChange={e=>select(e.target.value || null)}><option value="">서울시 전체</option>{DISTRICTS.map(d=><option key={d.code} value={d.code}>{d.name}</option>)}</select></label>
-    <button className="btn district-overview" onClick={()=>select(code)}>{district?.name ?? '서울시'} 전체 보기</button>
+    {selectionControls && <><label className="district-select"><span className="sr-only">담당 자치구</span><select aria-label="담당 자치구" value={code ?? ''} onChange={e=>select(e.target.value || null)}><option value="">서울시 전체</option>{DISTRICTS.map(d=><option key={d.code} value={d.code}>{d.name}</option>)}</select></label>
+    <button className="btn district-overview" onClick={()=>select(code)}>{district?.name ?? '서울시'} 전체 보기</button></>}
     <p className="district-summary" role="status"><strong>{district?.name ?? '서울시 전체'}</strong><span>{ready ? `제설함 ${allInDistrict.length.toLocaleString('ko-KR')}개` : error ? '제설함 자료 오류' : '제설함 자료 불러오는 중…'}</span></p>
     <p className="caption">제설함은 확대하면 3D 함으로 표시합니다. 구 전체에서는 작은 위치 점으로 표시합니다. 정밀 그늘은 구 안에서 지점을 고른 뒤 주변 범위로 계산하세요.</p>
     {districtError && <p className="notice-warning" role="alert">구 경계를 불러오지 못했습니다. {districtError}</p>}
